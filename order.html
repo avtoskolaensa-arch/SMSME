@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SMSME • შეტყობინების გაგზავნა</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg-1: #050816;
@@ -24,7 +20,6 @@
       --blue: #3b82f6;
       --cyan: #06b6d4;
       --green: #10b981;
-      --gold: #f59e0b;
       --danger: #ef4444;
       --shadow: 0 24px 70px rgba(0,0,0,0.35);
       --radius-xl: 26px;
@@ -43,10 +38,7 @@
       padding: 18px 0 34px;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    a { text-decoration: none; color: inherit; }
 
     .container {
       width: 100%;
@@ -106,8 +98,6 @@
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
       background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(59,130,246,0.10));
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius-xl);
@@ -171,10 +161,7 @@
       margin-bottom: 16px;
     }
 
-    form {
-      display: grid;
-      gap: 14px;
-    }
+    form { display: grid; gap: 14px; }
 
     .field label {
       display: block;
@@ -270,9 +257,7 @@
       flex-wrap: wrap;
     }
 
-    .price-main strong {
-      font-size: 17px;
-    }
+    .price-main strong { font-size: 17px; }
 
     .price-value {
       font-size: 30px;
@@ -405,9 +390,7 @@
       box-shadow: 0 10px 24px rgba(59,130,246,0.14);
     }
 
-    .copy-btn:hover {
-      transform: translateY(-1px);
-    }
+    .copy-btn:hover { transform: translateY(-1px); }
 
     .upload-box {
       border-radius: 22px;
@@ -459,9 +442,7 @@
       display: inline-block;
     }
 
-    .file-input {
-      display: none;
-    }
+    .file-input { display: none; }
 
     .file-name {
       margin-top: 10px;
@@ -668,22 +649,10 @@
     }
 
     @media (min-width: 860px) {
-      .container {
-        padding: 0 20px;
-      }
-
-      .hero {
-        padding: 24px;
-      }
-
-      .hero h1 {
-        font-size: 38px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
+      .container { padding: 0 20px; }
+      .hero { padding: 24px; }
+      .hero h1 { font-size: 38px; }
+      .hero p { font-size: 15px; }
       .layout {
         grid-template-columns: 1.08fr 0.92fr;
         gap: 18px;
@@ -708,7 +677,7 @@
       <div class="hero-badge">SMSME • Order Form</div>
       <h1>გააგზავნე ანონიმური შეტყობინება</h1>
       <p>
-        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი, სურვილის შემთხვევაში ატვირთე ქვითარი და გაგზავნე შეტყობინება.
+        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი და სურვილის შემთხვევაში ატვირთე ქვითარი.
       </p>
     </div>
 
@@ -864,8 +833,8 @@
         </div>
 
         <div class="item">
-          <strong>ქვითარი სურვილისამებრ</strong>
-          <span>შეტყობინება ფოტოს გარეშეც გაიგზავნება. თუ ატვირთავ ქვითარს, ის ცალკე წავა Google Drive-ში.</span>
+          <strong>ქვითარი არასავალდებულოა</strong>
+          <span>შეტყობინება ფოტოს გარეშეც გაიგზავნება. თუ ატვირთავ ქვითარს, ის ცალკე წავა Drive-ში.</span>
         </div>
 
         <div class="item">
@@ -878,9 +847,6 @@
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpGO-t4VYEw0gq76LLyTcOU_Ztos-xcbI2cpUFz18F6imhyogJCmP9AvZwxnNCfh3d/exec";
-
-    // აქ ჩასვი ცალკე Drive upload script-ის URL
-    const DRIVE_UPLOAD_URL = "ჩასვი_ფოტოს_ატვირთვის_ცალკე_URL";
 
     const BASE_PRICE = 3.5;
     const EXTRA_PRICE = 0.5;
@@ -982,13 +948,13 @@
       });
     }
 
-    function setSubmittingState(isSubmitting, text) {
+    function setSubmittingState(isSubmitting, customText) {
       submitBtn.disabled = isSubmitting;
       submitBtn.classList.toggle("loading", isSubmitting);
       formOverlay.classList.toggle("active", isSubmitting);
-      submitBtnText.textContent = isSubmitting ? (text || "იგზავნება...") : "შეტყობინების გაგზავნა";
+      submitBtnText.textContent = isSubmitting ? (customText || "იგზავნება...") : "შეტყობინების გაგზავნა";
       overlayText.textContent = isSubmitting
-        ? (text === "ქვითარი იტვირთება..." ? "გთხოვ, მოიცადე რამდენიმე წამი. ქვითარი იგზავნება Google Drive-ში." : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.")
+        ? (customText === "ქვითარი იტვირთება..." ? "გთხოვ, მოიცადე რამდენიმე წამი. ქვითარი იტვირთება Drive-ში." : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.")
         : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.";
 
       const controls = form.querySelectorAll("input, textarea, select, button");
@@ -999,21 +965,18 @@
       });
     }
 
-    async function uploadReceiptSeparately(file, orderId) {
-      if (!file || !DRIVE_UPLOAD_URL || DRIVE_UPLOAD_URL === "ჩასვი_ფოტოს_ატვირთვის_ცალკე_URL") {
-        return { status: "skipped" };
-      }
-
+    async function uploadReceiptWithSameScript(file, orderId) {
       const base64 = await fileToBase64(file);
 
       const payload = {
+        mode: "receipt",
         orderId: orderId,
         originalFileName: file.name,
         mimeType: file.type,
         fileBase64: base64
       };
 
-      const response = await fetch(DRIVE_UPLOAD_URL, {
+      const response = await fetch(SCRIPT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "text/plain;charset=utf-8"
@@ -1055,14 +1018,10 @@
           await navigator.clipboard.writeText(text);
           const oldText = this.textContent;
           this.textContent = "დაკოპირდა";
-          setTimeout(() => {
-            this.textContent = oldText;
-          }, 1400);
+          setTimeout(() => { this.textContent = oldText; }, 1400);
         } catch (e) {
           this.textContent = "ვერ დაკოპირდა";
-          setTimeout(() => {
-            this.textContent = "ანგარიშის კოპირება";
-          }, 1400);
+          setTimeout(() => { this.textContent = "ანგარიშის კოპირება"; }, 1400);
         }
       });
     });
@@ -1104,6 +1063,7 @@
 
       try {
         const payload = {
+          mode: "order",
           fullname: fullName,
           senderName: sender,
           bank: bankLabel,
@@ -1138,7 +1098,7 @@
         if (uploadedFile) {
           try {
             setSubmittingState(true, "ქვითარი იტვირთება...");
-            const uploadResult = await uploadReceiptSeparately(uploadedFile, result.orderId || "");
+            const uploadResult = await uploadReceiptWithSameScript(uploadedFile, result.orderId || "");
 
             if (uploadResult.status === "success") {
               finalMessage += "\nქვითარიც წარმატებით აიტვირთა.";
