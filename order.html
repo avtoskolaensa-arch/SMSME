@@ -12,37 +12,37 @@
     }
 
     :root {
-      --bg-1: #060816;
-      --bg-2: #0d1328;
-      --bg-3: #171d38;
-      --panel: rgba(255,255,255,0.06);
-      --panel-2: rgba(255,255,255,0.08);
-      --border: rgba(255,255,255,0.1);
+      --bg-1: #050816;
+      --bg-2: #0b1126;
+      --bg-3: #141b35;
+      --panel: rgba(255,255,255,0.07);
+      --panel-strong: rgba(255,255,255,0.1);
+      --border: rgba(255,255,255,0.12);
       --text: #ffffff;
       --muted: rgba(255,255,255,0.72);
-      --purple: #7c3aed;
-      --purple-2: #5b21b6;
+      --purple: #8b5cf6;
+      --purple-2: #6d28d9;
       --blue: #3b82f6;
       --cyan: #06b6d4;
       --green: #10b981;
       --gold: #f59e0b;
       --danger: #ef4444;
-      --shadow: 0 18px 55px rgba(0,0,0,0.35);
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
+      --shadow: 0 24px 70px rgba(0,0,0,0.35);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(124,58,237,0.18), transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(59,130,246,0.16), transparent 22%),
-        linear-gradient(135deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+        radial-gradient(circle at 8% 12%, rgba(139,92,246,0.18), transparent 22%),
+        radial-gradient(circle at 90% 85%, rgba(59,130,246,0.14), transparent 24%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2) 46%, var(--bg-3));
       min-height: 100vh;
       overflow-x: hidden;
-      padding: 16px 0 32px;
+      padding: 18px 0 34px;
     }
 
     a {
@@ -52,7 +52,7 @@
 
     .container {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
       padding: 0 14px;
     }
@@ -61,64 +61,99 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 16px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       min-width: 0;
     }
 
     .brand img {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
       object-fit: contain;
-      border-radius: 12px;
+      border-radius: 14px;
       flex-shrink: 0;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+      background: rgba(255,255,255,0.04);
+      padding: 4px;
     }
 
     .brand strong {
       display: block;
       font-size: 20px;
       line-height: 1.1;
+      letter-spacing: -0.02em;
     }
 
     .brand span {
       display: block;
       color: var(--muted);
       font-size: 12px;
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     .back-link {
       font-size: 13px;
       color: var(--muted);
       white-space: nowrap;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
     }
 
     .hero {
-      background: linear-gradient(135deg, rgba(124,58,237,0.16), rgba(59,130,246,0.10));
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(139,92,246,0.18), rgba(59,130,246,0.10));
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
-      padding: 20px;
+      padding: 22px;
       margin-bottom: 16px;
     }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,255,255,0.09), transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 12px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
     .hero h1 {
-      font-size: 28px;
+      font-size: 30px;
       line-height: 1.08;
       margin-bottom: 8px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
     .hero p {
       color: var(--muted);
       font-size: 14px;
+      max-width: 760px;
     }
 
     .layout {
@@ -133,12 +168,13 @@
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
       padding: 18px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
     }
 
     .card h2 {
       font-size: 22px;
       margin-bottom: 8px;
+      letter-spacing: -0.02em;
     }
 
     .card .sub {
@@ -150,12 +186,6 @@
     form {
       display: grid;
       gap: 14px;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
     }
 
     .field label {
@@ -173,11 +203,11 @@
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.05);
       color: #fff;
-      border-radius: 14px;
-      padding: 13px 14px;
+      border-radius: 16px;
+      padding: 14px 15px;
       font-size: 14px;
       outline: none;
-      transition: 0.2s ease;
+      transition: 0.22s ease;
       appearance: none;
     }
 
@@ -190,7 +220,7 @@
         calc(100% - 14px) calc(50% - 3px);
       background-size: 6px 6px, 6px 6px;
       background-repeat: no-repeat;
-      padding-right: 40px;
+      padding-right: 42px;
     }
 
     .field select option {
@@ -200,19 +230,19 @@
 
     .field input::placeholder,
     .field textarea::placeholder {
-      color: rgba(255,255,255,0.42);
+      color: rgba(255,255,255,0.4);
     }
 
     .field input:focus,
     .field textarea:focus,
     .field select:focus {
-      border-color: rgba(124,58,237,0.95);
-      box-shadow: 0 0 0 4px rgba(124,58,237,0.15);
+      border-color: rgba(139,92,246,0.95);
+      box-shadow: 0 0 0 4px rgba(139,92,246,0.14);
       background: rgba(255,255,255,0.07);
     }
 
     .field textarea {
-      min-height: 130px;
+      min-height: 140px;
       resize: vertical;
     }
 
@@ -231,35 +261,37 @@
     .error-text {
       margin-top: 8px;
       font-size: 12px;
-      color: #ffb1b1;
+      color: #ffb3b3;
       display: none;
     }
 
     .price-box {
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 16px;
-      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(59,130,246,0.10));
-      border: 1px solid rgba(124,58,237,0.24);
+      background:
+        linear-gradient(135deg, rgba(139,92,246,0.18), rgba(59,130,246,0.12));
+      border: 1px solid rgba(139,92,246,0.24);
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .price-main {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
     .price-main strong {
-      font-size: 16px;
+      font-size: 17px;
     }
 
     .price-value {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 800;
       color: #fff;
+      text-shadow: 0 8px 24px rgba(139,92,246,0.25);
     }
 
     .stats {
@@ -269,7 +301,7 @@
     }
 
     .mini-box {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
       padding: 14px;
@@ -289,7 +321,7 @@
     .bank-box {
       display: none;
       margin-top: 12px;
-      border-radius: 20px;
+      border-radius: 22px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
@@ -297,11 +329,17 @@
 
     .bank-box.active {
       display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .bank-head {
       padding: 14px 16px;
-      background: linear-gradient(135deg, rgba(59,130,246,0.24), rgba(124,58,237,0.18));
+      background: linear-gradient(135deg, rgba(59,130,246,0.24), rgba(139,92,246,0.20));
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
@@ -326,7 +364,7 @@
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
-      padding: 12px 14px;
+      padding: 13px 14px;
     }
 
     .bank-line small {
@@ -365,24 +403,25 @@
       justify-content: center;
       border: none;
       border-radius: 14px;
-      min-height: 46px;
+      min-height: 48px;
       padding: 0 16px;
       font-size: 14px;
       font-weight: 800;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: 0.22s ease;
     }
 
     .copy-btn {
-      background: linear-gradient(135deg, rgba(59,130,246,0.24), rgba(6,182,212,0.18));
+      background: linear-gradient(135deg, rgba(59,130,246,0.28), rgba(6,182,212,0.20));
       color: #fff;
-      border: 1px solid rgba(59,130,246,0.24);
-      min-width: 170px;
+      border: 1px solid rgba(59,130,246,0.26);
+      min-width: 180px;
+      box-shadow: 0 10px 24px rgba(59,130,246,0.14);
     }
 
     .copy-btn:hover {
       transform: translateY(-1px);
-      background: linear-gradient(135deg, rgba(59,130,246,0.30), rgba(6,182,212,0.22));
+      background: linear-gradient(135deg, rgba(59,130,246,0.34), rgba(6,182,212,0.24));
     }
 
     .submit-btn {
@@ -394,6 +433,7 @@
 
     .submit-btn:hover {
       transform: translateY(-1px);
+      box-shadow: 0 16px 34px rgba(91,33,182,0.38);
     }
 
     .submit-btn:disabled {
@@ -402,9 +442,9 @@
     }
 
     .upload-box {
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 14px;
-      background: linear-gradient(135deg, rgba(16,185,129,0.10), rgba(245,158,11,0.08));
+      background: linear-gradient(135deg, rgba(16,185,129,0.11), rgba(245,158,11,0.09));
       border: 1px solid rgba(16,185,129,0.18);
     }
 
@@ -459,14 +499,14 @@
     }
 
     .side-info .item {
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 15px;
       border: 1px solid rgba(255,255,255,0.09);
       box-shadow: var(--shadow);
     }
 
     .side-info .item:nth-child(1) {
-      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(91,33,182,0.10));
+      background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(109,40,217,0.10));
     }
 
     .side-info .item:nth-child(2) {
@@ -513,10 +553,6 @@
         grid-template-columns: 1.08fr 0.92fr;
         gap: 18px;
       }
-
-      .row {
-        grid-template-columns: 1fr 1fr;
-      }
     }
   </style>
 </head>
@@ -534,6 +570,7 @@
     </div>
 
     <div class="hero">
+      <div class="hero-badge">SMSME • Order Form</div>
       <h1>გააგზავნე ანონიმური შეტყობინება</h1>
       <p>
         შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი, ატვირთე ქვითარი და გაგზავნე შეტყობინება.
@@ -681,7 +718,7 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxfcQ9cQgkBBzR48cdRUKcxvMlGkSJ2OQvg1LD9SjUGrchnCSyfNdxN367taDoDhYEq/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpGO-t4VYEw0gq76LLyTcOU_Ztos-xcbI2cpUFz18F6imhyogJCmP9AvZwxnNCfh3d/exec";
 
     const BASE_PRICE = 3.5;
     const EXTRA_PRICE = 0.5;
