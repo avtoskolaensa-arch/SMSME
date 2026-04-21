@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SMSME • შეკვეთა</title>
+  <title>SMSME • შეტყობინების გაგზავნა</title>
   <style>
     * {
       box-sizing: border-box;
@@ -14,14 +14,16 @@
     :root {
       --bg-1: #070b1e;
       --bg-2: #0e1430;
-      --bg-3: #18154a;
-      --card: rgba(255,255,255,0.06);
-      --card-border: rgba(255,255,255,0.12);
+      --bg-3: #1a1550;
+      --card: rgba(255,255,255,0.07);
+      --card-border: rgba(255,255,255,0.1);
       --text: #ffffff;
       --muted: rgba(255,255,255,0.76);
       --purple: #8b3dff;
       --purple-2: #5f2bff;
-      --success: #12b981;
+      --blue: #2f7cff;
+      --green: #12b981;
+      --yellow: #f59e0b;
       --danger: #ef4444;
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
     }
@@ -30,13 +32,13 @@
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 15%, rgba(139, 61, 255, 0.18), transparent 20%),
-        radial-gradient(circle at 85% 85%, rgba(95, 43, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 12% 14%, rgba(139, 61, 255, 0.20), transparent 22%),
+        radial-gradient(circle at 88% 82%, rgba(47, 124, 255, 0.18), transparent 22%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
       min-height: 100vh;
       line-height: 1.5;
       overflow-x: hidden;
-      padding: 18px 0 32px;
+      padding: 16px 0 28px;
     }
 
     a {
@@ -46,7 +48,7 @@
 
     .container {
       width: 100%;
-      max-width: 980px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 14px;
     }
@@ -56,7 +58,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .brand {
@@ -67,8 +69,8 @@
     }
 
     .brand img {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       object-fit: contain;
       border-radius: 12px;
       flex-shrink: 0;
@@ -95,8 +97,8 @@
     }
 
     .hero {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, rgba(139,61,255,0.14), rgba(47,124,255,0.10));
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 24px;
       box-shadow: var(--shadow);
       padding: 18px;
@@ -105,7 +107,7 @@
 
     .hero h1 {
       font-size: 28px;
-      line-height: 1.1;
+      line-height: 1.08;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
     }
@@ -127,6 +129,7 @@
       border-radius: 22px;
       box-shadow: var(--shadow);
       padding: 18px;
+      backdrop-filter: blur(10px);
     }
 
     .card h2 {
@@ -160,7 +163,8 @@
     }
 
     .field input,
-    .field textarea {
+    .field textarea,
+    .field select {
       width: 100%;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.06);
@@ -170,6 +174,24 @@
       font-size: 14px;
       outline: none;
       transition: 0.2s ease;
+      appearance: none;
+    }
+
+    .field select {
+      background-image:
+        linear-gradient(45deg, transparent 50%, #fff 50%),
+        linear-gradient(135deg, #fff 50%, transparent 50%);
+      background-position:
+        calc(100% - 20px) calc(50% - 3px),
+        calc(100% - 14px) calc(50% - 3px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+      padding-right: 40px;
+    }
+
+    .field select option {
+      color: #000;
+      background: #fff;
     }
 
     .field input::placeholder,
@@ -178,7 +200,8 @@
     }
 
     .field input:focus,
-    .field textarea:focus {
+    .field textarea:focus,
+    .field select:focus {
       border-color: rgba(139, 61, 255, 0.9);
       box-shadow: 0 0 0 4px rgba(139, 61, 255, 0.15);
     }
@@ -201,16 +224,16 @@
     }
 
     .price-box,
-    .bank-box,
     .upload-box,
+    .bank-box,
     .mini-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
       border-radius: 18px;
       padding: 14px;
     }
 
     .price-box {
+      background: linear-gradient(135deg, rgba(139,61,255,0.16), rgba(47,124,255,0.10));
+      border: 1px solid rgba(139,61,255,0.22);
       display: grid;
       gap: 10px;
     }
@@ -228,7 +251,7 @@
     }
 
     .price-value {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 800;
       color: #fff;
     }
@@ -237,6 +260,11 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+    }
+
+    .mini-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .mini-box strong {
@@ -250,20 +278,23 @@
       font-size: 12px;
     }
 
-    .bank-list {
-      display: grid;
-      gap: 12px;
+    .bank-select-wrap {
+      margin-top: 2px;
     }
 
-    .bank-item {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 16px;
-      padding: 14px;
+    .bank-box {
+      display: none;
+      margin-top: 12px;
+      background: linear-gradient(135deg, rgba(47,124,255,0.13), rgba(18,185,129,0.10));
+      border: 1px solid rgba(47,124,255,0.22);
     }
 
-    .bank-item h3 {
-      font-size: 16px;
+    .bank-box.active {
+      display: block;
+    }
+
+    .bank-box h3 {
+      font-size: 18px;
       margin-bottom: 8px;
     }
 
@@ -325,6 +356,11 @@
       cursor: not-allowed;
     }
 
+    .upload-box {
+      background: linear-gradient(135deg, rgba(18,185,129,0.10), rgba(245,158,11,0.08));
+      border: 1px solid rgba(18,185,129,0.18);
+    }
+
     .upload-label {
       width: 100%;
     }
@@ -369,10 +405,25 @@
     }
 
     .side-info .item {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
       border-radius: 16px;
       padding: 14px;
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .side-info .item:nth-child(1) {
+      background: linear-gradient(135deg, rgba(139,61,255,0.16), rgba(95,43,255,0.09));
+    }
+
+    .side-info .item:nth-child(2) {
+      background: linear-gradient(135deg, rgba(47,124,255,0.16), rgba(47,124,255,0.08));
+    }
+
+    .side-info .item:nth-child(3) {
+      background: linear-gradient(135deg, rgba(18,185,129,0.16), rgba(18,185,129,0.08));
+    }
+
+    .side-info .item:nth-child(4) {
+      background: linear-gradient(135deg, rgba(245,158,11,0.16), rgba(245,158,11,0.08));
     }
 
     .side-info .item strong {
@@ -421,7 +472,7 @@
         <img src="Logo" alt="SMSME Logo">
         <div>
           <strong>SMSME</strong>
-          <span>შეკვეთის ფორმა</span>
+          <span>შეტყობინების ფორმა</span>
         </div>
       </a>
       <a href="index.html" class="back-link">← უკან დაბრუნება</a>
@@ -436,7 +487,7 @@
 
     <div class="layout">
       <div class="card">
-        <h2>შეკვეთის დეტალები</h2>
+        <h2>შეტყობინების დეტალები</h2>
         <div class="sub">შეავსე ყველა აუცილებელი ველი სწორად</div>
 
         <form id="orderForm">
@@ -446,7 +497,7 @@
           </div>
 
           <div class="field">
-            <label for="senderName">რა სახელით გსურთ SMS გაგზავნა?</label>
+            <label for="senderName">რა სახელით გსურთ სმს გაგზავნა?</label>
             <input type="text" id="senderName" name="senderName" placeholder="მაგ. Nika" required>
             <div class="hint">შეიყვანე მხოლოდ ლათინური ასოებით</div>
           </div>
@@ -477,31 +528,33 @@
             </div>
 
             <div class="hint">
-              ფასი იწყება <strong>3.5 ₾</strong>-დან.  
-              ყოველი დამატებითი 160 სიმბოლო ზრდის ფასს <strong>0.5 ₾</strong>-ით.
+              ფასი იწყება <strong>3.5 ₾</strong>-დან. ყოველი დამატებითი 160 სიმბოლო ზრდის ფასს <strong>0.5 ₾</strong>-ით.
             </div>
             <div class="hint">
               მაგალითი: 160 სიმბოლო = 3.5 ₾ • 165 სიმბოლო = 4.0 ₾ • 330 სიმბოლო = 4.5 ₾
             </div>
           </div>
 
-          <div class="card" style="padding:14px;">
-            <h2 style="font-size:18px; margin-bottom:10px;">გადახდის ანგარიშები</h2>
+          <div class="field bank-select-wrap">
+            <label for="bankSelect">გადახდა</label>
+            <select id="bankSelect" required>
+              <option value="">აირჩიე ბანკი</option>
+              <option value="bog">საქართველოს ბანკი</option>
+              <option value="tbc">თიბისი ბანკი</option>
+            </select>
 
-            <div class="bank-list">
-              <div class="bank-item">
-                <h3>საქართველოს ბანკი</h3>
-                <div class="iban" id="bogIban">GE61BG0000000607735752</div>
-                <div class="recipient">მიმღები: ა.ყ</div>
-                <button type="button" class="copy-btn" data-copy="GE61BG0000000607735752">ანგარიშის კოპირება</button>
-              </div>
+            <div id="bogBox" class="bank-box">
+              <h3>საქართველოს ბანკი</h3>
+              <div class="iban">GE61BG0000000607735752</div>
+              <div class="recipient">მიმღები: ა.ყ</div>
+              <button type="button" class="copy-btn" data-copy="GE61BG0000000607735752">ანგარიშის კოპირება</button>
+            </div>
 
-              <div class="bank-item">
-                <h3>თიბისი ბანკი</h3>
-                <div class="iban" id="tbcIban">GE70TB7342145061600013</div>
-                <div class="recipient">მიმღები: ა.ყ</div>
-                <button type="button" class="copy-btn" data-copy="GE70TB7342145061600013">ანგარიშის კოპირება</button>
-              </div>
+            <div id="tbcBox" class="bank-box">
+              <h3>თიბისი ბანკი</h3>
+              <div class="iban">GE70TB7342145061600013</div>
+              <div class="recipient">მიმღები: ა.ყ</div>
+              <button type="button" class="copy-btn" data-copy="GE70TB7342145061600013">ანგარიშის კოპირება</button>
             </div>
           </div>
 
@@ -511,7 +564,7 @@
             <div class="file-name" id="fileName">ფაილი ჯერ არ არის არჩეული</div>
           </div>
 
-          <button type="submit" id="submitBtn" class="submit-btn">შეკვეთის გაგზავნა</button>
+          <button type="submit" id="submitBtn" class="submit-btn">შეტყობინების გაგზავნა</button>
           <div id="formStatus" class="status"></div>
         </form>
       </div>
@@ -528,8 +581,8 @@
         </div>
 
         <div class="item">
-          <strong>ქვითარი აუცილებელია</strong>
-          <span>გადარიცხვის დასრულების შემდეგ ატვირთე ქვითრის სქრინი, რათა შეკვეთა გადავამოწმოთ.</span>
+          <strong>გადახდა და ქვითარი</strong>
+          <span>აირჩიე სასურველი ბანკი, გადარიცხე თანხა და შემდეგ ატვირთე ქვითრის სქრინი.</span>
         </div>
 
         <div class="item">
@@ -557,6 +610,9 @@
     const submitBtn = document.getElementById("submitBtn");
     const receiptFile = document.getElementById("receiptFile");
     const fileName = document.getElementById("fileName");
+    const bankSelect = document.getElementById("bankSelect");
+    const bogBox = document.getElementById("bogBox");
+    const tbcBox = document.getElementById("tbcBox");
 
     function containsGeorgian(text) {
       return /[\u10A0-\u10FF]/.test(text);
@@ -584,8 +640,24 @@
       }
     }
 
+    function updateBankInfo() {
+      bogBox.classList.remove("active");
+      tbcBox.classList.remove("active");
+
+      if (bankSelect.value === "bog") {
+        bogBox.classList.add("active");
+      }
+
+      if (bankSelect.value === "tbc") {
+        tbcBox.classList.add("active");
+      }
+    }
+
     messageText.addEventListener("input", updatePricing);
+    bankSelect.addEventListener("change", updateBankInfo);
+
     updatePricing();
+    updateBankInfo();
 
     receiptFile.addEventListener("change", function () {
       if (this.files && this.files[0]) {
@@ -620,9 +692,10 @@
       const fullName = document.getElementById("fullname").value.trim();
       const senderName = document.getElementById("senderName").value.trim();
       const msg = document.getElementById("messageText").value.trim();
+      const selectedBank = bankSelect.value;
       const uploadedFile = receiptFile.files[0] ? receiptFile.files[0].name : "";
 
-      if (!fullName || !senderName || !msg) {
+      if (!fullName || !senderName || !msg || !selectedBank) {
         formStatus.className = "status error";
         formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი.";
         return;
@@ -635,6 +708,7 @@
       }
 
       const { segments, price } = calculatePrice(msg.length);
+      const bankLabel = selectedBank === "bog" ? "საქართველოს ბანკი" : "თიბისი ბანკი";
 
       formStatus.className = "status";
       formStatus.textContent = "";
@@ -647,7 +721,7 @@
         phone: "",
         sendtime: "",
         message: msg,
-        comment: "Sender Name: " + senderName + " | Symbols: " + msg.length + " | Segments: " + segments + " | Price: " + price.toFixed(1) + " GEL | Receipt File: " + uploadedFile
+        comment: "Sender Name: " + senderName + " | Bank: " + bankLabel + " | Symbols: " + msg.length + " | Segments: " + segments + " | Price: " + price.toFixed(1) + " GEL | Receipt File: " + uploadedFile
       };
 
       try {
@@ -663,10 +737,11 @@
 
         if (result.status === "success") {
           formStatus.className = "status success";
-          formStatus.textContent = "შეკვეთა წარმატებით გაიგზავნა. ქვითარი ცალკე ვიზუალურად აიტვირთა, მაგრამ ფაილის შენახვის ფუნქცია შემდეგ ეტაპზე უნდა მივაბათ.";
+          formStatus.textContent = "შეტყობინება წარმატებით გაიგზავნა.";
           form.reset();
           fileName.textContent = "ფაილი ჯერ არ არის არჩეული";
           updatePricing();
+          updateBankInfo();
         } else {
           formStatus.className = "status error";
           formStatus.textContent = "დაფიქსირდა შეცდომა: " + (result.message || "ვერ გაიგზავნა");
@@ -677,7 +752,7 @@
       }
 
       submitBtn.disabled = false;
-      submitBtn.textContent = "შეკვეთის გაგზავნა";
+      submitBtn.textContent = "შეტყობინების გაგზავნა";
     });
   </script>
 </body>
