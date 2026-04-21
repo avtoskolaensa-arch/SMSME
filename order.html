@@ -536,7 +536,7 @@
     <div class="hero">
       <h1>გააგზავნე ანონიმური შეტყობინება</h1>
       <p>
-        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი და გაგზავნე შეტყობინება მარტივად.
+        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი, ატვირთე ქვითარი და გაგზავნე შეტყობინება.
       </p>
     </div>
 
@@ -547,13 +547,13 @@
 
         <form id="orderForm">
           <div class="field">
-            <label for="fullname">სახელი და გვარი (თანხის ჩარიცხვის იდენტიფიცირებისთვის)</label>
-            <input type="text" id="fullname" name="fullname" placeholder="მაგ. Nukri Iashvili" required>
+            <label for="fullname">სახელი და გვარი</label>
+            <input type="text" id="fullname" name="fullname" placeholder="მაგ. Giorgi Katamadze" required>
           </div>
 
           <div class="field">
             <label for="senderName">რა სახელით გსურთ სმს გაგზავნა?</label>
-            <input type="text" id="senderName" name="senderName" placeholder="მაგ. Komisari, Jarima " required>
+            <input type="text" id="senderName" name="senderName" placeholder="მაგ. Nika" required>
             <div class="hint">შეიყვანე მხოლოდ ლათინური ასოებით</div>
             <div id="latinSenderWarning" class="warning" style="display:none;">გთხოვ, გამოიყენო მხოლოდ ლათინური ასოები.</div>
             <div id="blockedSenderWarning" class="error-text">ეს სახელი არ არის დაშვებული. გთხოვ, გამოიყენო სხვა სახელი.</div>
@@ -568,7 +568,7 @@
 
           <div class="price-box">
             <div class="price-main">
-              <strong>შეტყობინების საფასური</strong>
+              <strong>ავტომატური ფასი</strong>
               <div id="priceValue" class="price-value">3.5 ₾</div>
             </div>
 
@@ -603,7 +603,7 @@
             <div id="bogBox" class="bank-box">
               <div class="bank-head">
                 <h3>საქართველოს ბანკი</h3>
-                <p>აირჩიე ეს ბანკი, თუ გადარიცხვა საქართველოს ბანკიდან გინდა</p>
+                <p>აირჩიე ეს ბანკი, თუ გადარიცხვას საქართველოს ბანკით აკეთებ</p>
               </div>
               <div class="bank-body">
                 <div class="bank-line">
@@ -625,7 +625,7 @@
             <div id="tbcBox" class="bank-box">
               <div class="bank-head">
                 <h3>თიბისი ბანკი</h3>
-                <p>აირჩიე ეს ბანკი, თუ გადარიცხვა თიბისიდან გინდა</p>
+                <p>აირჩიე ეს ბანკი, თუ გადარიცხვას თიბისი ბანკით აკეთებ</p>
               </div>
               <div class="bank-body">
                 <div class="bank-line">
@@ -647,7 +647,7 @@
 
           <div class="upload-box">
             <label class="upload-label" for="receiptFile">ქვითრის სქრინის ატვირთვა</label>
-            <input class="file-input" type="file" id="receiptFile" name="receiptFile" accept="image/*">
+            <input class="file-input" type="file" id="receiptFile" name="receiptFile" accept="image/*" required>
             <div class="file-name" id="fileName">ფაილი ჯერ არ არის არჩეული</div>
           </div>
 
@@ -673,8 +673,8 @@
         </div>
 
         <div class="item">
-          <strong>უსაფრთხო გამოყენება</strong>
-          <span>არ გამოიყენო აკრძალული სახელები, ასევე შეურაცხმყოფელი, მუქარის ან თაღლითური შინაარსი.</span>
+          <strong>აკრძალული სახელები</strong>
+          <span>შეგიძლია ხელით მართო აკრძალული სახელების სია და დაბლოკო არასასურველი გამგზავნის სახელები.</span>
         </div>
       </div>
     </div>
@@ -687,15 +687,7 @@
     const EXTRA_PRICE = 0.5;
     const SEGMENT_SIZE = 160;
 
-    /*
-      აქ ჩაწერ აკრძალული სახელების სიას.
-      შეგიძლია დაამატო რამდენიც გინდა.
-      მაგალითი:
-      "police",
-      "tbc",
-      "bog",
-      "fbi"
-    */
+    // აქ ჩაწერ აკრძალული სახელების სიას
     const BLOCKED_SENDER_NAMES = [
       "police",
       "tbc",
@@ -748,7 +740,6 @@
 
     function updateSenderValidation() {
       const value = senderName.value || "";
-
       latinSenderWarning.style.display = containsGeorgian(value) ? "block" : "none";
       blockedSenderWarning.style.display = isBlockedSenderName(value) ? "block" : "none";
     }
@@ -759,6 +750,15 @@
 
       if (bankSelect.value === "bog") bogBox.classList.add("active");
       if (bankSelect.value === "tbc") tbcBox.classList.add("active");
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
     }
 
     messageText.addEventListener("input", updatePricing);
@@ -803,9 +803,9 @@
       const sender = senderName.value.trim();
       const msg = messageText.value.trim();
       const selectedBank = bankSelect.value;
-      const uploadedFile = receiptFile.files[0] ? receiptFile.files[0].name : "";
+      const uploadedFile = receiptFile.files[0] || null;
 
-      if (!fullName || !sender || !msg || !selectedBank) {
+      if (!fullName || !sender || !msg || !selectedBank || !uploadedFile) {
         formStatus.className = "status error";
         formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი.";
         return;
@@ -831,22 +831,22 @@
       submitBtn.disabled = true;
       submitBtn.textContent = "იგზავნება...";
 
-      const payload = {
-        fullname: fullName,
-        email: "",
-        phone: "",
-        sendtime: "",
-        message: msg,
-        comment:
-          "Sender Name: " + sender +
-          " | Bank: " + bankLabel +
-          " | Symbols: " + msg.length +
-          " | Segments: " + segments +
-          " | Price: " + price.toFixed(1) + " GEL" +
-          " | Receipt File: " + uploadedFile
-      };
-
       try {
+        const receiptBase64 = await fileToBase64(uploadedFile);
+
+        const payload = {
+          fullname: fullName,
+          senderName: sender,
+          bank: bankLabel,
+          message: msg,
+          symbols: msg.length,
+          segments: segments,
+          price: price.toFixed(1) + " GEL",
+          receiptBase64: receiptBase64,
+          receiptMimeType: uploadedFile.type,
+          receiptFileName: uploadedFile.name
+        };
+
         const response = await fetch(SCRIPT_URL, {
           method: "POST",
           headers: {
@@ -871,7 +871,7 @@
         }
       } catch (error) {
         formStatus.className = "status error";
-        formStatus.textContent = "გაგზავნა ვერ შესრულდა. გადაამოწმე Apps Script deploy.";
+        formStatus.textContent = "გაგზავნა ვერ შესრულდა. გადაამოწმე Apps Script, Drive Folder და ფაილის ატვირთვა.";
       }
 
       submitBtn.disabled = false;
