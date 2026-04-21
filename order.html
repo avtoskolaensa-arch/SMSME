@@ -163,12 +163,14 @@
     }
 
     .card {
+      position: relative;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
       padding: 18px;
       backdrop-filter: blur(12px);
+      overflow: hidden;
     }
 
     .card h2 {
@@ -425,10 +427,12 @@
     }
 
     .submit-btn {
+      position: relative;
       background: linear-gradient(135deg, var(--purple), var(--purple-2));
       color: #fff;
       box-shadow: 0 12px 30px rgba(91,33,182,0.34);
       width: 100%;
+      overflow: hidden;
     }
 
     .submit-btn:hover {
@@ -437,8 +441,58 @@
     }
 
     .submit-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
+      opacity: 1;
+      cursor: wait;
+    }
+
+    .submit-btn.loading {
+      pointer-events: none;
+      background: linear-gradient(135deg, #7b61ff, #5b21b6);
+    }
+
+    .submit-btn.loading::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        110deg,
+        transparent 20%,
+        rgba(255,255,255,0.13) 45%,
+        transparent 70%
+      );
+      animation: shimmer 1.2s linear infinite;
+    }
+
+    @keyframes shimmer {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
+
+    .btn-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.28);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+      flex-shrink: 0;
+    }
+
+    .submit-btn.loading .spinner {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .upload-box {
@@ -446,6 +500,22 @@
       padding: 14px;
       background: linear-gradient(135deg, rgba(16,185,129,0.11), rgba(245,158,11,0.09));
       border: 1px solid rgba(16,185,129,0.18);
+      transition: 0.25s ease;
+    }
+
+    .upload-box:hover {
+      border-color: rgba(16,185,129,0.34);
+      box-shadow: 0 12px 28px rgba(16,185,129,0.08);
+    }
+
+    .upload-box.uploading {
+      border-color: rgba(59,130,246,0.45);
+      background: linear-gradient(135deg, rgba(59,130,246,0.13), rgba(16,185,129,0.10));
+    }
+
+    .upload-box.ready {
+      border-color: rgba(16,185,129,0.45);
+      background: linear-gradient(135deg, rgba(16,185,129,0.16), rgba(16,185,129,0.10));
     }
 
     .upload-label {
@@ -453,10 +523,31 @@
       background: rgba(255,255,255,0.08);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.12);
+      min-height: 56px;
     }
 
     .upload-label:hover {
       background: rgba(255,255,255,0.12);
+    }
+
+    .upload-label-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .upload-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.26);
+      border-top-color: #fff;
+      display: none;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .upload-box.uploading .upload-icon {
+      display: inline-block;
     }
 
     .file-input {
@@ -468,6 +559,37 @@
       font-size: 13px;
       color: var(--muted);
       word-break: break-word;
+      min-height: 20px;
+    }
+
+    .file-meta {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .file-meta.active {
+      display: flex;
+    }
+
+    .file-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d7ffef;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(16,185,129,0.16);
+      border: 1px solid rgba(16,185,129,0.22);
+      padding: 8px 10px;
+      border-radius: 999px;
     }
 
     .status {
@@ -532,6 +654,55 @@
       font-size: 13px;
     }
 
+    .form-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 8, 22, 0.62);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      border-radius: inherit;
+    }
+
+    .form-overlay.active {
+      display: flex;
+    }
+
+    .overlay-box {
+      width: calc(100% - 40px);
+      max-width: 360px;
+      border-radius: 22px;
+      padding: 22px 18px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(59,130,246,0.14));
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.28);
+    }
+
+    .overlay-spinner {
+      width: 36px;
+      height: 36px;
+      margin: 0 auto 14px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .overlay-box strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .overlay-box p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
     @media (min-width: 860px) {
       .container {
         padding: 0 20px;
@@ -579,6 +750,14 @@
 
     <div class="layout">
       <div class="card">
+        <div id="formOverlay" class="form-overlay">
+          <div class="overlay-box">
+            <div class="overlay-spinner"></div>
+            <strong>მიმდინარეობს გაგზავნა</strong>
+            <p>გთხოვ, მოიცადე რამდენიმე წამი. ფოტო და მონაცემები იტვირთება.</p>
+          </div>
+        </div>
+
         <h2>შეტყობინების დეტალები</h2>
         <div class="sub">შეავსე ყველა აუცილებელი ველი სწორად</div>
 
@@ -682,13 +861,29 @@
             </div>
           </div>
 
-          <div class="upload-box">
-            <label class="upload-label" for="receiptFile">ქვითრის სქრინის ატვირთვა</label>
+          <div id="uploadBox" class="upload-box">
+            <label class="upload-label" for="receiptFile">
+              <span class="upload-label-inner">
+                <span id="uploadIcon" class="upload-icon"></span>
+                <span id="uploadLabelText">ქვითრის სქრინის ატვირთვა</span>
+              </span>
+            </label>
             <input class="file-input" type="file" id="receiptFile" name="receiptFile" accept="image/*" required>
             <div class="file-name" id="fileName">ფაილი ჯერ არ არის არჩეული</div>
+
+            <div id="fileMeta" class="file-meta">
+              <div class="file-badge">ფაილი მზადაა ასატვირთად</div>
+              <div id="fileSize" class="hint" style="margin-top:0;"></div>
+            </div>
           </div>
 
-          <button type="submit" id="submitBtn" class="submit-btn">შეტყობინების გაგზავნა</button>
+          <button type="submit" id="submitBtn" class="submit-btn">
+            <span class="btn-content">
+              <span class="spinner"></span>
+              <span id="submitBtnText">შეტყობინების გაგზავნა</span>
+            </span>
+          </button>
+
           <div id="formStatus" class="status"></div>
         </form>
       </div>
@@ -742,11 +937,17 @@
     const blockedSenderWarning = document.getElementById("blockedSenderWarning");
     const formStatus = document.getElementById("formStatus");
     const submitBtn = document.getElementById("submitBtn");
+    const submitBtnText = document.getElementById("submitBtnText");
     const receiptFile = document.getElementById("receiptFile");
     const fileName = document.getElementById("fileName");
+    const fileMeta = document.getElementById("fileMeta");
+    const fileSize = document.getElementById("fileSize");
     const bankSelect = document.getElementById("bankSelect");
     const bogBox = document.getElementById("bogBox");
     const tbcBox = document.getElementById("tbcBox");
+    const uploadBox = document.getElementById("uploadBox");
+    const uploadLabelText = document.getElementById("uploadLabelText");
+    const formOverlay = document.getElementById("formOverlay");
 
     function containsGeorgian(text) {
       return /[\u10A0-\u10FF]/.test(text);
@@ -792,9 +993,39 @@
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
+        reader.onloadstart = () => {
+          uploadBox.classList.add("uploading");
+          uploadBox.classList.remove("ready");
+          uploadLabelText.textContent = "ფაილი მუშავდება...";
+        };
         reader.onload = () => resolve(reader.result);
         reader.onerror = reject;
+        reader.onloadend = () => {
+          uploadBox.classList.remove("uploading");
+          uploadBox.classList.add("ready");
+          uploadLabelText.textContent = "ქვითარი მზადაა გასაგზავნად";
+        };
         reader.readAsDataURL(file);
+      });
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+    function setSubmittingState(isSubmitting) {
+      submitBtn.disabled = isSubmitting;
+      submitBtn.classList.toggle("loading", isSubmitting);
+      formOverlay.classList.toggle("active", isSubmitting);
+      submitBtnText.textContent = isSubmitting ? "იგზავნება..." : "შეტყობინების გაგზავნა";
+
+      const controls = form.querySelectorAll("input, textarea, select, button");
+      controls.forEach(control => {
+        if (control !== submitBtn) {
+          control.disabled = isSubmitting;
+        }
       });
     }
 
@@ -808,9 +1039,17 @@
 
     receiptFile.addEventListener("change", function () {
       if (this.files && this.files[0]) {
-        fileName.textContent = "არჩეული ფაილი: " + this.files[0].name;
+        const file = this.files[0];
+        fileName.textContent = "არჩეული ფაილი: " + file.name;
+        fileSize.textContent = "ზომა: " + formatFileSize(file.size);
+        fileMeta.classList.add("active");
+        uploadBox.classList.add("ready");
+        uploadLabelText.textContent = "ქვითარი არჩეულია";
       } else {
         fileName.textContent = "ფაილი ჯერ არ არის არჩეული";
+        fileMeta.classList.remove("active");
+        uploadBox.classList.remove("ready");
+        uploadLabelText.textContent = "ქვითრის სქრინის ატვირთვა";
       }
     });
 
@@ -865,8 +1104,8 @@
 
       formStatus.className = "status";
       formStatus.textContent = "";
-      submitBtn.disabled = true;
-      submitBtn.textContent = "იგზავნება...";
+
+      setSubmittingState(true);
 
       try {
         const receiptBase64 = await fileToBase64(uploadedFile);
@@ -899,6 +1138,9 @@
           formStatus.textContent = "შეტყობინება წარმატებით გაიგზავნა.";
           form.reset();
           fileName.textContent = "ფაილი ჯერ არ არის არჩეული";
+          fileMeta.classList.remove("active");
+          uploadBox.classList.remove("ready", "uploading");
+          uploadLabelText.textContent = "ქვითრის სქრინის ატვირთვა";
           updatePricing();
           updateSenderValidation();
           updateBankInfo();
@@ -911,8 +1153,7 @@
         formStatus.textContent = "გაგზავნა ვერ შესრულდა. გადაამოწმე Apps Script, Drive Folder და ფაილის ატვირთვა.";
       }
 
-      submitBtn.disabled = false;
-      submitBtn.textContent = "შეტყობინების გაგზავნა";
+      setSubmittingState(false);
     });
   </script>
 </body>
