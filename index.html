@@ -1,182 +1,847 @@
 <!DOCTYPE html>
 <html lang="ka">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SMSME</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMSME</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    :root {
+      --bg-1: #070b1e;
+      --bg-2: #0e1430;
+      --bg-3: #18154a;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.76);
+      --purple: #8b3dff;
+      --purple-2: #5f2bff;
+      --white-soft: rgba(255,255,255,0.92);
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --container: 1220px;
+    }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg,#070b1e,#18154a);
-  color: #fff;
-  min-height: 100vh;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* HEADER */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(139, 61, 255, 0.18), transparent 20%),
+        radial-gradient(circle at 85% 85%, rgba(95, 43, 255, 0.16), transparent 22%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+      min-height: 100vh;
+      line-height: 1.5;
+    }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-.logo img {
-  width: 40px;
-  height: 40px;
-}
+    .container {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-.logo span {
-  font-weight: 800;
-  font-size: 18px;
-}
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(6, 10, 25, 0.68);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
 
-/* HERO */
-.hero {
-  padding: 30px 18px;
-  text-align: center;
-}
+    .header-inner {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-.hero img {
-  width: 90px;
-  margin-bottom: 16px;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-.hero h1 {
-  font-size: 26px;
-  margin-bottom: 12px;
-}
+    .brand img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    }
 
-.hero p {
-  font-size: 14px;
-  color: rgba(255,255,255,0.8);
-  margin-bottom: 20px;
-}
+    .brand-text strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
 
-/* BUTTON */
-.main-btn {
-  display: block;
-  width: 100%;
-  max-width: 320px;
-  margin: 0 auto 20px;
-  padding: 16px;
-  border-radius: 16px;
-  text-align: center;
-  font-weight: 800;
-  background: linear-gradient(135deg,#8b3dff,#5f2bff);
-  color: #fff;
-  font-size: 16px;
-}
+    .brand-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
 
-/* SMALL INFO */
-.info {
-  padding: 10px 18px 30px;
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-.info-box {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 10px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.85);
-}
+    .nav a {
+      color: var(--muted);
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
 
-/* LINKS */
-.links {
-  text-align: center;
-  margin-top: 10px;
-}
+    .nav a:hover {
+      color: #fff;
+    }
 
-.links a {
-  font-size: 13px;
-  color: rgba(255,255,255,0.7);
-  text-decoration: underline;
-}
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--purple), var(--purple-2));
+      color: white;
+      box-shadow: 0 12px 30px rgba(95, 43, 255, 0.34);
+      transition: 0.2s ease;
+    }
 
-/* DESKTOP */
-@media (min-width: 768px) {
+    .header-btn:hover,
+    .hero-btn:hover,
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba(95, 43, 255, 0.4);
+    }
 
-.hero {
-  padding: 80px 20px;
-}
+    .hero {
+      padding: 72px 0 44px;
+    }
 
-.hero h1 {
-  font-size: 42px;
-}
+    .hero-box {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      padding: 38px;
+      overflow: hidden;
+      position: relative;
+    }
 
-.hero p {
-  font-size: 16px;
-}
+    .hero-box::before {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(139,61,255,0.22), transparent 65%);
+      pointer-events: none;
+    }
 
-.main-btn {
-  font-size: 18px;
-  padding: 18px;
-}
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--white-soft);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
 
-}
-</style>
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      max-width: 760px;
+    }
 
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 690px;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .hero-btn,
+    .hero-btn-secondary,
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .hero-btn,
+    .cta-btn {
+      background: linear-gradient(135deg, var(--purple), var(--purple-2));
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(95, 43, 255, 0.34);
+    }
+
+    .hero-btn-secondary {
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .hero-btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-stat {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .hero-stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-logo-card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .hero-logo-card img {
+      width: 100%;
+      max-width: 230px;
+      object-fit: contain;
+      margin-bottom: 18px;
+      filter: drop-shadow(0 16px 30px rgba(0,0,0,0.35));
+    }
+
+    .hero-logo-card h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .hero-logo-card p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    section {
+      padding: 38px 0;
+    }
+
+    .section-head {
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      font-size: 34px;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .info-card,
+    .policy-card,
+    .schedule-card,
+    .privacy-card,
+    .cta-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card,
+    .info-card,
+    .policy-card,
+    .schedule-card,
+    .privacy-card {
+      padding: 24px;
+    }
+
+    .feature-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .feature-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(139,61,255,0.28), rgba(95,43,255,0.18));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    .feature-card h3,
+    .info-card h3,
+    .policy-card h3,
+    .schedule-card h3,
+    .privacy-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p,
+    .info-card p,
+    .policy-card p,
+    .schedule-card p,
+    .privacy-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .policy-card ul,
+    .schedule-list,
+    .privacy-list {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .policy-card li,
+    .schedule-list li,
+    .privacy-list li {
+      list-style: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: var(--white-soft);
+      font-size: 14px;
+    }
+
+    .schedule-banner {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 15px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(139,61,255,0.18), rgba(95,43,255,0.12));
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .cta-section {
+      padding-bottom: 70px;
+    }
+
+    .cta-card {
+      padding: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cta-card::after {
+      content: "";
+      position: absolute;
+      right: -100px;
+      bottom: -100px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(139,61,255,0.16), transparent 70%);
+    }
+
+    .cta-left {
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-left .mini-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cta-left .mini-brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+
+    .cta-left h2 {
+      font-size: 34px;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-left p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(4, 7, 18, 0.55);
+    }
+
+    .footer-inner {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+
+    .footer-brand strong {
+      display: block;
+      font-size: 17px;
+    }
+
+    .footer-brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 14px;
+      text-align: right;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-box,
+      .grid-3,
+      .info-grid,
+      .cta-card {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-card {
+        display: grid;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero-logo-card {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hero {
+        padding-top: 44px;
+      }
+
+      .hero-box {
+        padding: 22px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero p,
+      .section-head p,
+      .cta-left p {
+        font-size: 15px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head h2,
+      .cta-left h2 {
+        font-size: 28px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+      }
+
+      .footer-note {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="logo">
-    <img src="Logo" alt="">
-    <span>SMSME</span>
-  </div>
-</div>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="brand">
+        <img src="Logo" alt="SMSME Logo">
+        <div class="brand-text">
+          <strong>SMSME</strong>
+          <span>სწრაფი • კონფიდენციალური • მარტივი</span>
+        </div>
+      </a>
 
-<!-- HERO -->
-<div class="hero">
-  <img src="Logo" alt="">
+      <nav class="nav">
+        <a href="#features">რატომ ჩვენ</a>
+        <a href="#rules">წესები</a>
+        <a href="#timing">დრო და სტატუსი</a>
+        <a href="#privacy">კონფიდენციალურობა</a>
+        <a href="order.html" class="header-btn">შეკვეთის გაფორმება</a>
+      </nav>
+    </div>
+  </header>
 
-  <h1>გააგზავნე ანონიმური შეტყობინება</h1>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box">
+          <div class="hero-content">
+            <div class="hero-badge">SMSME • პერსონალური SMS მომსახურება</div>
 
-  <p>
-    მიულოცე, გააოცე ან უბრალოდ გაახალისე ვინმე.  
-    მარტივად, სწრაფად და კომფორტულად.
-  </p>
+            <h1>გააგზავნე SMS სასურველი სახელით სასურველ ნომერზე</h1>
 
-  <a href="order.html" class="main-btn">
-    გაგზავნის დაწყება
-  </a>
-</div>
+            <p>
+              მიულოცე, გააოცე, იხუმრე, გამოხატე ემოცია ან გაუგზავნე თბილი შეტყობინება მარტივად.
+              ჩვენი პლატფორმა შექმნილია სწრაფი, კომფორტული და მაქსიმალურად კონფიდენციალური მომსახურებისთვის.
+            </p>
 
-<!-- INFO -->
-<div class="info">
+            <div class="hero-actions">
+              <a href="order.html" class="hero-btn">გააფორმე შეკვეთა</a>
+              <a href="#rules" class="hero-btn-secondary">წესების ნახვა</a>
+            </div>
 
-  <div class="info-box">
-    შეტყობინება იგზავნება გადახდიდან დაახლოებით 5-60 წუთში.
-  </div>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <strong>5–60 წთ</strong>
+                <span>შეკვეთის საშუალო დამუშავება გადახდის დადასტურების შემდეგ</span>
+              </div>
+              <div class="hero-stat">
+                <strong>09:00 – 03:00</strong>
+                <span>მომსახურების აქტიური დრო ყოველდღიური დამუშავებისთვის</span>
+              </div>
+              <div class="hero-stat">
+                <strong>Support Chat</strong>
+                <span>სტატუსის გადამოწმება შესაძლებელია სამუშაო საათებში</span>
+              </div>
+            </div>
+          </div>
 
-  <div class="info-box">
-    SMS სერვისი მუშაობს 09:00 – 03:00 საათამდე.
-  </div>
+          <div class="hero-visual">
+            <div class="hero-logo-card">
+              <img src="Logo" alt="SMSME Logo">
+              <h3>SMSME</h3>
+              <p>
+                თანამედროვე სერვისი მათთვის, ვისაც სურს სწრაფად, მარტივად და დაცულად გააგზავნოს პერსონალური SMS.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <div class="info-box">
-    შეკვეთის სტატუსის გადამოწმება შესაძლებელია support ჩატში.
-  </div>
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <h2>რატომ SMSME?</h2>
+          <p>
+            ჩვენ ვქმნით თანამედროვე სერვისს, რომელიც აერთიანებს მარტივ შეკვეთას,
+            სწრაფ დამუშავებას და ვიზუალურად სუფთა გამოცდილებას.
+          </p>
+        </div>
 
-  <div class="links">
-    <a href="rules.html">წესები და პირობები</a>
-  </div>
+        <div class="grid-3">
+          <div class="feature-card">
+            <div class="feature-top">
+              <div class="feature-icon">⚡</div>
+              <h3>სწრაფი დამუშავება</h3>
+            </div>
+            <p>
+              შეკვეთები მუშავდება ოპერატიულად და გადახდის დადასტურების შემდეგ შეტყობინების გაგზავნა,
+              როგორც წესი, მოკლე დროში იწყება.
+            </p>
+          </div>
 
-</div>
+          <div class="feature-card">
+            <div class="feature-top">
+              <div class="feature-icon">🛡️</div>
+              <h3>დაცული სერვისი</h3>
+            </div>
+            <p>
+              მომხმარებლის კონფიდენციალურობა ჩვენთვის მნიშვნელოვანია. სერვისი ორიენტირებულია
+              დაცულ და პასუხისმგებლიან მომსახურებაზე.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-top">
+              <div class="feature-icon">✨</div>
+              <h3>მარტივი პროცესი</h3>
+            </div>
+            <p>
+              შეკვეთის გაფორმება მარტივად შეგიძლია რამდენიმე ველის შევსებით, ხოლო დარჩენილ ტექნიკურ ნაწილს
+              ჩვენ ვამუშავებთ შენს ნაცვლად.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>როგორ მუშაობს სერვისი</h3>
+            <p>
+              SMSME გაძლევს შესაძლებლობას შეუკვეთო შეტყობინება სასურველი სახელით და სასურველ ნომერზე.
+              მომსახურება განკუთვნილია მილოცვისთვის, გასართობი შეტყობინებებისთვის, თბილი ტექსტებისთვის
+              და სხვა მსუბუქი, მეგობრული კომუნიკაციისთვის.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>რას მიიღებ</h3>
+            <p>
+              მიიღებ სწრაფ, მარტივ და მკაფიო მომსახურებას — შეკვეთის გაფორმებიდან სტატუსის გადამოწმებამდე.
+              ჩვენი ინტერფეისი და პროცესები შექმნილია იმისთვის, რომ ყველაფერი იყოს რაც შეიძლება კომფორტული.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="container">
+        <div class="section-head">
+          <h2>წესები და მომსახურების პირობები</h2>
+          <p>
+            გთხოვთ, ყურადღებით გაეცნოთ ქვემოთ მოცემულ პირობებს შეკვეთის გაფორმებამდე.
+          </p>
+        </div>
+
+        <div class="policy-card">
+          <h3>მნიშვნელოვანი ინფორმაცია</h3>
+          <p>
+            თქვენ შეგიძლიათ შეუკვეთოთ SMS თქვენთვის სასურველი სახელით, თუმცა არსებობს მკაფიო წესები,
+            რომელთა დაცვაც აუცილებელია მომსახურების გამოყენებისთვის.
+          </p>
+
+          <ul>
+            <li>შეკვეთა არ დამუშავდება, თუ ტექსტი შეიცავს მუქარის, ბულინგის, თაღლითური, შეურაცხმყოფელი ან სხვა დაუშვებელი შინაარსის ნიშნებს.</li>
+            <li>პლატფორმა იტოვებს უფლებას, უარი თქვას ისეთი ტექსტის დამუშავებაზე, რომელიც არღვევს უსაფრთხოების ან მომსახურების სტანდარტებს.</li>
+            <li>გაგზავნილი ტექსტის შინაარსზე სრული პასუხისმგებლობა ეკისრება მომხმარებელს.</li>
+            <li>ჩვენი სერვისი განკუთვნილია გასართობი, მილოცვისა და მსუბუქი პერსონალური კომუნიკაციისთვის.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="timing">
+      <div class="container">
+        <div class="section-head">
+          <h2>დრო, დამუშავება და სტატუსის შემოწმება</h2>
+          <p>
+            შეკვეთების დამუშავების პროცესი მაქსიმალურად გამჭვირვალე და გასაგებია.
+          </p>
+        </div>
+
+        <div class="schedule-card">
+          <h3>დამუშავების ვადები</h3>
+          <p>
+            SMS-ის გაგზავნა იწყება გადახდის დადასტურების შემდეგ და ჩვეულებრივ სრულდება
+            დაახლოებით <strong>5-დან 60 წუთამდე</strong> პერიოდში.
+          </p>
+
+          <ul class="schedule-list">
+            <li>შეკვეთის სტატუსის გადამოწმება შესაძლებელია ჩვენი Support Chat-ის საშუალებით სამუშაო საათებში.</li>
+            <li>მომსახურების აქტიური დრო იწყება დილის 09:00 საათიდან და გრძელდება ღამის 03:00 საათამდე.</li>
+            <li>დამუშავების სიჩქარე შესაძლოა დამოკიდებული იყოს რიგზე, დატვირთვაზე და ტექსტის გადამოწმების პროცესზე.</li>
+          </ul>
+
+          <div class="schedule-banner">Support Chat • სამუშაო საათებში სტატუსის გადამოწმება ხელმისაწვდომია</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="container">
+        <div class="section-head">
+          <h2>კონფიდენციალურობა</h2>
+          <p>
+            მომხმარებლის პირადი ინფორმაცია და მომსახურების კონფიდენციალურობა ჩვენთვის პრიორიტეტულია.
+          </p>
+        </div>
+
+        <div class="privacy-card">
+          <h3>პირადი მონაცემების დაცვა</h3>
+          <p>
+            ჩვენი მიზანია მომხმარებელმა მიიღოს დაცული და სანდო მომსახურება.
+            თქვენ მიერ მოწოდებული ინფორმაცია არ გაიცემა მესამე პირებზე, გარდა კანონით დადგენილი შემთხვევებისა.
+          </p>
+
+          <ul class="privacy-list">
+            <li>თქვენი შეკვეთის დეტალები მუშავდება მხოლოდ მომსახურების შესრულების მიზნით.</li>
+            <li>ჩვენ მაქსიმალურად ვიცავთ მომხმარებლის კონფიდენციალურობასა და პირად ინფორმაციას.</li>
+            <li>სერვისის გამოყენებით თქვენ ადასტურებთ, რომ პასუხისმგებლობა შეკვეთის ტექსტზე სრულად თქვენ გეკისრებათ.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card">
+          <div class="cta-left">
+            <div class="mini-brand">
+              <img src="Logo" alt="SMSME Logo">
+              <strong>SMSME</strong>
+            </div>
+            <h2>მზად ხარ შეკვეთის გასაფორმებლად?</h2>
+            <p>
+              თუ გსურს SMS-ის სწრაფად და მარტივად შეკვეთა, გადადი ფორმაზე და შეავსე საჭირო ინფორმაცია.
+              პროცესი დაგეხმარება შეკვეთის კომფორტულად დასრულებაში.
+            </p>
+          </div>
+
+          <a href="order.html" class="cta-btn">შეკვეთის გაფორმება</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="Logo" alt="SMSME Logo">
+        <div>
+          <strong>SMSME</strong>
+          <span>თანამედროვე პერსონალური SMS მომსახურება</span>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        © 2026 SMSME • ყველა უფლება დაცულია
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>
