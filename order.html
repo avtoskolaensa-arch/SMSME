@@ -12,33 +12,37 @@
     }
 
     :root {
-      --bg-1: #070b1e;
-      --bg-2: #0e1430;
-      --bg-3: #1a1550;
-      --card: rgba(255,255,255,0.07);
-      --card-border: rgba(255,255,255,0.1);
+      --bg-1: #060816;
+      --bg-2: #0d1328;
+      --bg-3: #171d38;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.1);
       --text: #ffffff;
-      --muted: rgba(255,255,255,0.76);
-      --purple: #8b3dff;
-      --purple-2: #5f2bff;
-      --blue: #2f7cff;
-      --green: #12b981;
-      --yellow: #f59e0b;
+      --muted: rgba(255,255,255,0.72);
+      --purple: #7c3aed;
+      --purple-2: #5b21b6;
+      --blue: #3b82f6;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --gold: #f59e0b;
       --danger: #ef4444;
-      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --shadow: 0 18px 55px rgba(0,0,0,0.35);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 12% 14%, rgba(139, 61, 255, 0.20), transparent 22%),
-        radial-gradient(circle at 88% 82%, rgba(47, 124, 255, 0.18), transparent 22%),
+        radial-gradient(circle at 10% 10%, rgba(124,58,237,0.18), transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(59,130,246,0.16), transparent 22%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
       min-height: 100vh;
-      line-height: 1.5;
       overflow-x: hidden;
-      padding: 16px 0 28px;
+      padding: 16px 0 32px;
     }
 
     a {
@@ -48,7 +52,7 @@
 
     .container {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 14px;
     }
@@ -97,11 +101,11 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, rgba(139,61,255,0.14), rgba(47,124,255,0.10));
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.16), rgba(59,130,246,0.10));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding: 20px;
       margin-bottom: 16px;
     }
 
@@ -124,9 +128,9 @@
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
       padding: 18px;
       backdrop-filter: blur(10px);
@@ -167,7 +171,7 @@
     .field select {
       width: 100%;
       border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.05);
       color: #fff;
       border-radius: 14px;
       padding: 13px 14px;
@@ -202,8 +206,9 @@
     .field input:focus,
     .field textarea:focus,
     .field select:focus {
-      border-color: rgba(139, 61, 255, 0.9);
-      box-shadow: 0 0 0 4px rgba(139, 61, 255, 0.15);
+      border-color: rgba(124,58,237,0.95);
+      box-shadow: 0 0 0 4px rgba(124,58,237,0.15);
+      background: rgba(255,255,255,0.07);
     }
 
     .field textarea {
@@ -220,20 +225,21 @@
     .warning {
       margin-top: 8px;
       font-size: 12px;
-      color: #ffd089;
+      color: #ffd58a;
     }
 
-    .price-box,
-    .upload-box,
-    .bank-box,
-    .mini-box {
-      border-radius: 18px;
-      padding: 14px;
+    .error-text {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #ffb1b1;
+      display: none;
     }
 
     .price-box {
-      background: linear-gradient(135deg, rgba(139,61,255,0.16), rgba(47,124,255,0.10));
-      border: 1px solid rgba(139,61,255,0.22);
+      border-radius: 20px;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(59,130,246,0.10));
+      border: 1px solid rgba(124,58,237,0.24);
       display: grid;
       gap: 10px;
     }
@@ -242,12 +248,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .price-main strong {
-      font-size: 17px;
+      font-size: 16px;
     }
 
     .price-value {
@@ -265,6 +271,8 @@
     .mini-box {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 14px;
     }
 
     .mini-box strong {
@@ -278,38 +286,75 @@
       font-size: 12px;
     }
 
-    .bank-select-wrap {
-      margin-top: 2px;
-    }
-
     .bank-box {
       display: none;
       margin-top: 12px;
-      background: linear-gradient(135deg, rgba(47,124,255,0.13), rgba(18,185,129,0.10));
-      border: 1px solid rgba(47,124,255,0.22);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
     }
 
     .bank-box.active {
       display: block;
     }
 
-    .bank-box h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
+    .bank-head {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.24), rgba(124,58,237,0.18));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .bank-head h3 {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .bank-head p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .bank-body {
+      padding: 16px;
+      background: rgba(255,255,255,0.04);
+      display: grid;
+      gap: 12px;
+    }
+
+    .bank-line {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .bank-line small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     .iban {
       font-size: 15px;
       font-weight: 700;
       word-break: break-all;
-      margin-bottom: 10px;
       color: #fff;
     }
 
     .recipient {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 10px;
+      font-size: 14px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .bank-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .copy-btn,
@@ -328,22 +373,22 @@
       transition: 0.2s ease;
     }
 
-    .copy-btn,
-    .upload-label {
-      background: rgba(255,255,255,0.08);
+    .copy-btn {
+      background: linear-gradient(135deg, rgba(59,130,246,0.24), rgba(6,182,212,0.18));
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(59,130,246,0.24);
+      min-width: 170px;
     }
 
-    .copy-btn:hover,
-    .upload-label:hover {
-      background: rgba(255,255,255,0.12);
+    .copy-btn:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, rgba(59,130,246,0.30), rgba(6,182,212,0.22));
     }
 
     .submit-btn {
       background: linear-gradient(135deg, var(--purple), var(--purple-2));
       color: #fff;
-      box-shadow: 0 12px 30px rgba(95, 43, 255, 0.34);
+      box-shadow: 0 12px 30px rgba(91,33,182,0.34);
       width: 100%;
     }
 
@@ -357,12 +402,21 @@
     }
 
     .upload-box {
-      background: linear-gradient(135deg, rgba(18,185,129,0.10), rgba(245,158,11,0.08));
-      border: 1px solid rgba(18,185,129,0.18);
+      border-radius: 20px;
+      padding: 14px;
+      background: linear-gradient(135deg, rgba(16,185,129,0.10), rgba(245,158,11,0.08));
+      border: 1px solid rgba(16,185,129,0.18);
     }
 
     .upload-label {
       width: 100%;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .upload-label:hover {
+      background: rgba(255,255,255,0.12);
     }
 
     .file-input {
@@ -387,9 +441,9 @@
 
     .status.success {
       display: block;
-      background: rgba(18,185,129,0.18);
+      background: rgba(16,185,129,0.18);
       color: #b8ffea;
-      border: 1px solid rgba(18,185,129,0.28);
+      border: 1px solid rgba(16,185,129,0.28);
     }
 
     .status.error {
@@ -405,25 +459,26 @@
     }
 
     .side-info .item {
-      border-radius: 16px;
-      padding: 14px;
+      border-radius: 18px;
+      padding: 15px;
       border: 1px solid rgba(255,255,255,0.09);
+      box-shadow: var(--shadow);
     }
 
     .side-info .item:nth-child(1) {
-      background: linear-gradient(135deg, rgba(139,61,255,0.16), rgba(95,43,255,0.09));
+      background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(91,33,182,0.10));
     }
 
     .side-info .item:nth-child(2) {
-      background: linear-gradient(135deg, rgba(47,124,255,0.16), rgba(47,124,255,0.08));
+      background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(6,182,212,0.08));
     }
 
     .side-info .item:nth-child(3) {
-      background: linear-gradient(135deg, rgba(18,185,129,0.16), rgba(18,185,129,0.08));
+      background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(16,185,129,0.08));
     }
 
     .side-info .item:nth-child(4) {
-      background: linear-gradient(135deg, rgba(245,158,11,0.16), rgba(245,158,11,0.08));
+      background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(245,158,11,0.08));
     }
 
     .side-info .item strong {
@@ -455,7 +510,7 @@
       }
 
       .layout {
-        grid-template-columns: 1.1fr 0.9fr;
+        grid-template-columns: 1.08fr 0.92fr;
         gap: 18px;
       }
 
@@ -481,7 +536,7 @@
     <div class="hero">
       <h1>გააგზავნე ანონიმური შეტყობინება</h1>
       <p>
-        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, ნახე ავტომატურად დათვლილი ფასი და ატვირთე გადახდის ქვითარი.
+        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი და გაგზავნე შეტყობინება მარტივად.
       </p>
     </div>
 
@@ -500,6 +555,8 @@
             <label for="senderName">რა სახელით გსურთ სმს გაგზავნა?</label>
             <input type="text" id="senderName" name="senderName" placeholder="მაგ. Nika" required>
             <div class="hint">შეიყვანე მხოლოდ ლათინური ასოებით</div>
+            <div id="latinSenderWarning" class="warning" style="display:none;">გთხოვ, გამოიყენო მხოლოდ ლათინური ასოები.</div>
+            <div id="blockedSenderWarning" class="error-text">ეს სახელი არ არის დაშვებული. გთხოვ, გამოიყენო სხვა სახელი.</div>
           </div>
 
           <div class="field">
@@ -535,7 +592,7 @@
             </div>
           </div>
 
-          <div class="field bank-select-wrap">
+          <div class="field">
             <label for="bankSelect">გადახდა</label>
             <select id="bankSelect" required>
               <option value="">აირჩიე ბანკი</option>
@@ -544,17 +601,47 @@
             </select>
 
             <div id="bogBox" class="bank-box">
-              <h3>საქართველოს ბანკი</h3>
-              <div class="iban">GE61BG0000000607735752</div>
-              <div class="recipient">მიმღები: ა.ყ</div>
-              <button type="button" class="copy-btn" data-copy="GE61BG0000000607735752">ანგარიშის კოპირება</button>
+              <div class="bank-head">
+                <h3>საქართველოს ბანკი</h3>
+                <p>აირჩიე ეს ბანკი, თუ გადარიცხვა საქართველოს ბანკიდან გინდა</p>
+              </div>
+              <div class="bank-body">
+                <div class="bank-line">
+                  <small>ანგარიში</small>
+                  <div class="iban">GE61BG0000000607735752</div>
+                </div>
+
+                <div class="bank-line">
+                  <small>მიმღები</small>
+                  <div class="recipient">ა.ყ</div>
+                </div>
+
+                <div class="bank-actions">
+                  <button type="button" class="copy-btn" data-copy="GE61BG0000000607735752">ანგარიშის კოპირება</button>
+                </div>
+              </div>
             </div>
 
             <div id="tbcBox" class="bank-box">
-              <h3>თიბისი ბანკი</h3>
-              <div class="iban">GE70TB7342145061600013</div>
-              <div class="recipient">მიმღები: ა.ყ</div>
-              <button type="button" class="copy-btn" data-copy="GE70TB7342145061600013">ანგარიშის კოპირება</button>
+              <div class="bank-head">
+                <h3>თიბისი ბანკი</h3>
+                <p>აირჩიე ეს ბანკი, თუ გადარიცხვა თიბისიდან გინდა</p>
+              </div>
+              <div class="bank-body">
+                <div class="bank-line">
+                  <small>ანგარიში</small>
+                  <div class="iban">GE70TB7342145061600013</div>
+                </div>
+
+                <div class="bank-line">
+                  <small>მიმღები</small>
+                  <div class="recipient">ა.ყ</div>
+                </div>
+
+                <div class="bank-actions">
+                  <button type="button" class="copy-btn" data-copy="GE70TB7342145061600013">ანგარიშის კოპირება</button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -587,7 +674,7 @@
 
         <div class="item">
           <strong>უსაფრთხო გამოყენება</strong>
-          <span>არ გამოიყენო შეურაცხმყოფელი, მუქარის ან თაღლითური შინაარსი.</span>
+          <span>არ გამოიყენო აკრძალული სახელები, ასევე შეურაცხმყოფელი, მუქარის ან თაღლითური შინაარსი.</span>
         </div>
       </div>
     </div>
@@ -600,12 +687,30 @@
     const EXTRA_PRICE = 0.5;
     const SEGMENT_SIZE = 160;
 
+    /*
+      აქ ჩაწერ აკრძალული სახელების სიას.
+      შეგიძლია დაამატო რამდენიც გინდა.
+      მაგალითი:
+      "police",
+      "tbc",
+      "bog",
+      "fbi"
+    */
+    const BLOCKED_SENDER_NAMES = [
+      "police",
+      "tbc",
+      "bog"
+    ];
+
     const form = document.getElementById("orderForm");
     const messageText = document.getElementById("messageText");
+    const senderName = document.getElementById("senderName");
     const priceValue = document.getElementById("priceValue");
     const charCount = document.getElementById("charCount");
     const segmentCount = document.getElementById("segmentCount");
     const latinWarning = document.getElementById("latinWarning");
+    const latinSenderWarning = document.getElementById("latinSenderWarning");
+    const blockedSenderWarning = document.getElementById("blockedSenderWarning");
     const formStatus = document.getElementById("formStatus");
     const submitBtn = document.getElementById("submitBtn");
     const receiptFile = document.getElementById("receiptFile");
@@ -616,6 +721,11 @@
 
     function containsGeorgian(text) {
       return /[\u10A0-\u10FF]/.test(text);
+    }
+
+    function isBlockedSenderName(text) {
+      const normalized = text.trim().toLowerCase();
+      return BLOCKED_SENDER_NAMES.includes(normalized);
     }
 
     function calculatePrice(length) {
@@ -633,30 +743,30 @@
       segmentCount.textContent = segments;
       priceValue.textContent = price.toFixed(1) + " ₾";
 
-      if (containsGeorgian(text)) {
-        latinWarning.style.display = "block";
-      } else {
-        latinWarning.style.display = "none";
-      }
+      latinWarning.style.display = containsGeorgian(text) ? "block" : "none";
+    }
+
+    function updateSenderValidation() {
+      const value = senderName.value || "";
+
+      latinSenderWarning.style.display = containsGeorgian(value) ? "block" : "none";
+      blockedSenderWarning.style.display = isBlockedSenderName(value) ? "block" : "none";
     }
 
     function updateBankInfo() {
       bogBox.classList.remove("active");
       tbcBox.classList.remove("active");
 
-      if (bankSelect.value === "bog") {
-        bogBox.classList.add("active");
-      }
-
-      if (bankSelect.value === "tbc") {
-        tbcBox.classList.add("active");
-      }
+      if (bankSelect.value === "bog") bogBox.classList.add("active");
+      if (bankSelect.value === "tbc") tbcBox.classList.add("active");
     }
 
     messageText.addEventListener("input", updatePricing);
+    senderName.addEventListener("input", updateSenderValidation);
     bankSelect.addEventListener("change", updateBankInfo);
 
     updatePricing();
+    updateSenderValidation();
     updateBankInfo();
 
     receiptFile.addEventListener("change", function () {
@@ -690,20 +800,26 @@
       e.preventDefault();
 
       const fullName = document.getElementById("fullname").value.trim();
-      const senderName = document.getElementById("senderName").value.trim();
-      const msg = document.getElementById("messageText").value.trim();
+      const sender = senderName.value.trim();
+      const msg = messageText.value.trim();
       const selectedBank = bankSelect.value;
       const uploadedFile = receiptFile.files[0] ? receiptFile.files[0].name : "";
 
-      if (!fullName || !senderName || !msg || !selectedBank) {
+      if (!fullName || !sender || !msg || !selectedBank) {
         formStatus.className = "status error";
         formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი.";
         return;
       }
 
-      if (containsGeorgian(senderName) || containsGeorgian(msg)) {
+      if (containsGeorgian(sender) || containsGeorgian(msg)) {
         formStatus.className = "status error";
         formStatus.textContent = "გთხოვ, გამოიყენო მხოლოდ ლათინური ასოები.";
+        return;
+      }
+
+      if (isBlockedSenderName(sender)) {
+        formStatus.className = "status error";
+        formStatus.textContent = "ეს სახელი აკრძალულია. გამოიყენე სხვა სახელი.";
         return;
       }
 
@@ -721,7 +837,13 @@
         phone: "",
         sendtime: "",
         message: msg,
-        comment: "Sender Name: " + senderName + " | Bank: " + bankLabel + " | Symbols: " + msg.length + " | Segments: " + segments + " | Price: " + price.toFixed(1) + " GEL | Receipt File: " + uploadedFile
+        comment:
+          "Sender Name: " + sender +
+          " | Bank: " + bankLabel +
+          " | Symbols: " + msg.length +
+          " | Segments: " + segments +
+          " | Price: " + price.toFixed(1) + " GEL" +
+          " | Receipt File: " + uploadedFile
       };
 
       try {
@@ -741,6 +863,7 @@
           form.reset();
           fileName.textContent = "ფაილი ჯერ არ არის არჩეული";
           updatePricing();
+          updateSenderValidation();
           updateBankInfo();
         } else {
           formStatus.className = "status error";
