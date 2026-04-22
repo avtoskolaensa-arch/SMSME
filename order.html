@@ -808,7 +808,7 @@
       <div class="hero-badge">SMSME • Order Form</div>
       <h1>გააგზავნე ანონიმური შეტყობინება</h1>
       <p>
-        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი და ატვირთე ქვითარი.
+        შეავსე ფორმა, აირჩიე გადახდის ბანკი და ატვირთე ქვითარი.
       </p>
     </div>
 
@@ -834,7 +834,6 @@
           <div class="field">
             <label for="senderName">რა სახელით გსურთ სმს გაგზავნა?</label>
             <input type="text" id="senderName" name="senderName" placeholder="მაგ. Nika" required>
-            <div class="hint">შეიყვანე მხოლოდ ლათინური ასოებით</div>
             <div id="latinSenderWarning" class="warning" style="display:none;">გთხოვ, გამოიყენო მხოლოდ ლათინური ასოები.</div>
             <div id="blockedSenderWarning" class="error-text">ეს სახელი არ არის დაშვებული. გთხოვ, გამოიყენო სხვა სახელი.</div>
           </div>
@@ -847,9 +846,7 @@
 
           <div class="field">
             <label for="messageText">რა ტექსტის გაგზავნა გსურთ?</label>
-            <textarea id="messageText" name="messageText" placeholder="Enter your message using latin letters only..." required></textarea>
-            <div class="hint">გამოიყენე მხოლოდ ლათინური ასოები, რიცხვები და სტანდარტული ნიშნები</div>
-            <div id="latinWarning" class="warning" style="display:none;">გთხოვ, გამოიყენო მხოლოდ ლათინური ასოები. ქართული სიმბოლოები არ მიიღება.</div>
+            <textarea id="messageText" name="messageText" placeholder="შეიყვანე სასურველი ტექსტი..." required></textarea>
           </div>
 
           <div class="price-box">
@@ -978,7 +975,6 @@
     const priceValue = document.getElementById("priceValue");
     const charCount = document.getElementById("charCount");
     const segmentCount = document.getElementById("segmentCount");
-    const latinWarning = document.getElementById("latinWarning");
     const latinSenderWarning = document.getElementById("latinSenderWarning");
     const blockedSenderWarning = document.getElementById("blockedSenderWarning");
     const formStatus = document.getElementById("formStatus");
@@ -1019,8 +1015,6 @@
       charCount.textContent = length;
       segmentCount.textContent = segments;
       priceValue.textContent = price.toFixed(1) + " ₾";
-
-      latinWarning.style.display = containsGeorgian(text) ? "block" : "none";
     }
 
     function updateSenderValidation() {
@@ -1131,9 +1125,15 @@
       const selectedBank = bankSelect.value;
       const uploadedFile = receiptFile.files[0] || null;
 
-      if (!fullName || !sender || !phone || !msg || !selectedBank || !uploadedFile) {
+      if (!fullName || !sender || !phone || !msg || !selectedBank) {
         formStatus.className = "status error";
-        formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი და ატვირთო ქვითარი.";
+        formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი.";
+        return;
+      }
+
+      if (!uploadedFile) {
+        formStatus.className = "status error";
+        formStatus.textContent = "გთხოვთ, გადაიხადოთ თანხა და ატვირთოთ ქვითარი გასაგზავნად.";
         return;
       }
 
@@ -1143,9 +1143,9 @@
         return;
       }
 
-      if (containsGeorgian(sender) || containsGeorgian(msg)) {
+      if (containsGeorgian(sender)) {
         formStatus.className = "status error";
-        formStatus.textContent = "გთხოვ, გამოიყენო მხოლოდ ლათინური ასოები.";
+        formStatus.textContent = "გთხოვ, გამოიყენო მხოლოდ ლათინური ასოები გამგზავნის სახელში.";
         return;
       }
 
