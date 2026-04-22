@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SMSME • შეტყობინების გაგზავნა</title>
+  <title>ანონიმური SMS გაგზავნა</title>
+  <link rel="icon" href="Logo" type="image/png">
+  <link rel="shortcut icon" href="Logo" type="image/png">
+  <link rel="apple-touch-icon" href="Logo">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -709,6 +712,12 @@
           </div>
 
           <div class="field">
+            <label for="receiverPhone">რა ნომერზე გსურთ სმს გაგზავნა?</label>
+            <input type="tel" id="receiverPhone" name="receiverPhone" placeholder="მაგ. 5XXXXXXXX" required>
+            <div class="hint">შეიყვანე მიმღების მობილურის ნომერი სწორ ფორმატში</div>
+          </div>
+
+          <div class="field">
             <label for="messageText">რა ტექსტის გაგზავნა გსურთ?</label>
             <textarea id="messageText" name="messageText" placeholder="Enter your message using latin letters only..." required></textarea>
             <div class="hint">გამოიყენე მხოლოდ ლათინური ასოები, რიცხვები და სტანდარტული ნიშნები</div>
@@ -842,9 +851,9 @@
   </div>
 
   <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiCGtbDjwxTR-8DEk9Ic9slMJhT3mv9XwSJ0SRs3uHgTWDMqVw_kRzA8MsEsaZglOh/exec";
-  const CLOUD_NAME = "drwadpggv";
-  const UPLOAD_PRESET = "sms_receipts";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiCGtbDjwxTR-8DEk9Ic9slMJhT3mv9XwSJ0SRs3uHgTWDMqVw_kRzA8MsEsaZglOh/exec";
+    const CLOUD_NAME = "drwadpggv";
+    const UPLOAD_PRESET = "sms_receipts";
 
     const BASE_PRICE = 3.5;
     const EXTRA_PRICE = 0.5;
@@ -859,6 +868,7 @@
     const form = document.getElementById("orderForm");
     const messageText = document.getElementById("messageText");
     const senderName = document.getElementById("senderName");
+    const receiverPhone = document.getElementById("receiverPhone");
     const priceValue = document.getElementById("priceValue");
     const charCount = document.getElementById("charCount");
     const segmentCount = document.getElementById("segmentCount");
@@ -1010,13 +1020,20 @@
 
       const fullName = document.getElementById("fullname").value.trim();
       const sender = senderName.value.trim();
+      const phone = receiverPhone.value.trim();
       const msg = messageText.value.trim();
       const selectedBank = bankSelect.value;
       const uploadedFile = receiptFile.files[0] || null;
 
-      if (!fullName || !sender || !msg || !selectedBank) {
+      if (!fullName || !sender || !phone || !msg || !selectedBank) {
         formStatus.className = "status error";
         formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი.";
+        return;
+      }
+
+      if (!/^5\d{8}$/.test(phone)) {
+        formStatus.className = "status error";
+        formStatus.textContent = "გთხოვ, შეიყვანო სწორი მობილურის ნომერი. მაგალითი: 5XXXXXXXX";
         return;
       }
 
@@ -1060,6 +1077,7 @@
         const payload = {
           fullname: fullName,
           senderName: sender,
+          receiverPhone: phone,
           bank: bankLabel,
           message: msg,
           symbols: msg.length,
