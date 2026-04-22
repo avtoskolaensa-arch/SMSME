@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SMSME</title>
+  <title>ანონიმური SMS გაგზავნა</title>
+  <link rel="icon" type="image/png" href="Logo" />
+  <link rel="shortcut icon" href="Logo" />
+  <link rel="apple-touch-icon" href="Logo" />
+  <meta name="theme-color" content="#0e1430" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -294,6 +299,12 @@
     }
 
     .hero-stat-link {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      min-height: 140px;
+      padding: 18px;
       position: relative;
       overflow: hidden;
       transition: 0.25s ease;
@@ -327,6 +338,18 @@
       color: #fff;
     }
 
+    .hero-stat-link strong {
+      font-size: 17px;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .hero-stat-link span {
+      font-size: 14px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
     .hero-stat-head {
       display: flex;
       align-items: center;
@@ -335,8 +358,8 @@
     }
 
     .facebook-icon {
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
       border-radius: 999px;
       background: linear-gradient(135deg, var(--facebook), var(--facebook-2));
       display: inline-flex;
@@ -344,7 +367,7 @@
       justify-content: center;
       color: #fff;
       font-weight: 900;
-      font-size: 18px;
+      font-size: 15px;
       line-height: 1;
       flex-shrink: 0;
       box-shadow: 0 10px 20px rgba(24, 119, 242, 0.22);
@@ -518,6 +541,24 @@
       font-size: 13px;
       overflow-wrap: anywhere;
       word-break: break-word;
+    }
+
+    .sub-policy-block {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sub-policy-block h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .sub-policy-block h3 {
+      margin-top: 10px;
     }
 
     .schedule-banner {
@@ -794,6 +835,10 @@
         padding: 24px;
       }
 
+      .sub-policy-block h2 {
+        font-size: 28px;
+      }
+
       .cta-card {
         padding: 34px;
         flex-direction: row;
@@ -862,6 +907,25 @@
       .privacy-card h3 {
         font-size: 18px;
       }
+
+      .hero-stat-link {
+        min-height: 128px;
+        padding: 16px;
+      }
+
+      .hero-stat-link strong {
+        font-size: 16px;
+      }
+
+      .hero-stat-link span {
+        font-size: 13px;
+      }
+
+      .facebook-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 14px;
+      }
     }
 
     @media (max-width: 420px) {
@@ -889,12 +953,6 @@
 
       .hero-stat-head {
         gap: 8px;
-      }
-
-      .facebook-icon {
-        width: 28px;
-        height: 28px;
-        font-size: 17px;
       }
     }
   </style>
@@ -945,10 +1003,12 @@
                 <strong>5–20 წთ</strong>
                 <span>შეკვეთის საშუალო დამუშავება გადახდის დადასტურების შემდეგ</span>
               </div>
+
               <div class="hero-stat">
                 <strong>09:00 – 04:00</strong>
                 <span>მომსახურების აქტიური დრო ყოველდღიური დამუშავებისთვის</span>
               </div>
+
               <a
                 href="https://www.facebook.com/profile.php?id=61575230007824"
                 target="_blank"
@@ -1072,44 +1132,34 @@
             <li>აკრძალულია შეტყობინებები , რომელიც ასოცირდება ბანკებთან, კაზინოებთან, სახელმწიფო უწყებებთან ან სხვა რეგულირებულ ორგანიზაციებთან;</li>
             <li>აკრძალულია გაიგზავნოს სიძულვილის შემცველი, შეურაცხმყოფელი, ძალადობრივი ან დისკრიმინაციული შინაარსის ტექსტები;</li>
             <li>აკრძალულია ჩვენი სერვისის გამოყენება სპამის, თაღლითობის ან ფიშინგის მიზნებისთვის.</li>
-
-            <section id="rules">
-             <div class="container">
-               <div class="section-head">
-                  <h2>მიმღების თანხმობა (კანონმდებლობის დაცვა)</h2>
-                 <p>
-            გთხოვთ, ყურადღებით გაეცნოთ ქვემოთ მოცემულ პირობებს შეტყობინების გაგზავნამდე.
-          </p>
-        </div>
-
-                <div class="policy-card">
-          <h3>მნიშვნელოვანი ინფორმაცია</h3>
-          <p>
-            საქართველოს „პერსონალურ მონაცემთა დაცვის შესახებ“ და „რეკლამის შესახებ“ კანონების შესაბამისად, SMS შეტყობინებების გაგზავნა დაშვებულია მხოლოდ იმ შემთხვევაში, თუ მიმღებმა წინასწარ გამოთქვა თანხმობა მათ მიღებაზე.
-            მომხმარებელი პასუხისმგებელია იმაზე, რომ ის SMS გაგზავნის მხოლოდ იმ ადამიანებზე, რომლებმაც მკაფიოდ გამოთქვეს თანხმობა;
-            ჩვენ არ ვაგროვებთ მიმღების მონაცემებს, მაგრამ ვიტოვებთ უფლებას გავაჩეროთ სერვისი იმ შემთხვევაში, თუ დავინახავთ კანონმდებლობის დარღვევის ნიშნებს.
-          </p>
-
-
-                  <section id="rules">
-             <div class="container">
-               <div class="section-head">
-                  <h2>პასუხისმგებლობის შეზღუდვა</h2>
-                 
-        </div>
-
-                <div class="policy-card">
-          
-          <p>
-            ჩვენ არ ვაგებთ პასუხს:
-
-            მობილური ოპერატორების ქსელის პრობლემებზე, რის შედეგადაც SMS ვერ მიაღწევს მიმღებს;
-
-            მომხმარებლის მიერ გაგზავნილ ტექსტზე და მის სამართლებრივ შედეგებზე.
-          </p>
-
-
           </ul>
+
+          <div class="sub-policy-block">
+            <h2>მიმღების თანხმობა (კანონმდებლობის დაცვა)</h2>
+            <p>
+              გთხოვთ, ყურადღებით გაეცნოთ ქვემოთ მოცემულ პირობებს შეტყობინების გაგზავნამდე.
+            </p>
+
+            <h3>მნიშვნელოვანი ინფორმაცია</h3>
+            <p>
+              საქართველოს „პერსონალურ მონაცემთა დაცვის შესახებ“ და „რეკლამის შესახებ“ კანონების შესაბამისად, SMS შეტყობინებების გაგზავნა დაშვებულია მხოლოდ იმ შემთხვევაში, თუ მიმღებმა წინასწარ გამოთქვა თანხმობა მათ მიღებაზე.
+              მომხმარებელი პასუხისმგებელია იმაზე, რომ ის SMS გაგზავნის მხოლოდ იმ ადამიანებზე, რომლებმაც მკაფიოდ გამოთქვეს თანხმობა;
+              ჩვენ არ ვაგროვებთ მიმღების მონაცემებს, მაგრამ ვიტოვებთ უფლებას გავაჩეროთ სერვისი იმ შემთხვევაში, თუ დავინახავთ კანონმდებლობის დარღვევის ნიშნებს.
+            </p>
+          </div>
+
+          <div class="sub-policy-block">
+            <h2>პასუხისმგებლობის შეზღუდვა</h2>
+            <p>
+              ჩვენ არ ვაგებთ პასუხს:
+            </p>
+            <p>
+              მობილური ოპერატორების ქსელის პრობლემებზე, რის შედეგადაც SMS ვერ მიაღწევს მიმღებს;
+            </p>
+            <p>
+              მომხმარებლის მიერ გაგზავნილ ტექსტზე და მის სამართლებრივ შედეგებზე.
+            </p>
+          </div>
         </div>
       </div>
     </section>
