@@ -830,7 +830,7 @@
 
         <div class="item">
           <strong>ქვითარი არასავალდებულოა</strong>
-          <span>შეტყობინება ფოტოს გარეშეც გაიგზავნება. თუ ატვირთავ ქვითარს, ის Drive-ში შეინახება.</span>
+          <span>შეტყობინება ფოტოს გარეშეც გაიგზავნება. თუ ატვირთავ ქვითარს, ის უსაფრთხოდ შეინახება ლინკის სახით.</span>
         </div>
 
         <div class="item">
@@ -842,7 +842,9 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcmBu-3ZBbHwO1r-6ocX1_LllZbqFtu3GJhNLRfpZgM8rLgQ5iX1zxjRCJX4BYS_fq/exec";
+    const SCRIPT_URL = "ჩასვი-აქ-შენი-ახალი-Apps-Script-Web-App-URL";
+    const CLOUD_NAME = "drwadpggv";
+    const UPLOAD_PRESET = "sms_receipts";
 
     const BASE_PRICE = 3.5;
     const EXTRA_PRICE = 0.5;
@@ -924,23 +926,29 @@
       return (bytes / (1024 * 1024)).toFixed(2) + " MB";
     }
 
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadstart = () => {
-          uploadBox.classList.add("uploading");
-          uploadBox.classList.remove("ready");
-          uploadLabelText.textContent = "ფაილი მუშავდება...";
-        };
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.onloadend = () => {
-          uploadBox.classList.remove("uploading");
-          uploadBox.classList.add("ready");
-          uploadLabelText.textContent = "ქვითარი მზადაა ასატვირთად";
-        };
-        reader.readAsDataURL(file);
+    async function uploadToCloudinary(file) {
+      const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", UPLOAD_PRESET);
+      formData.append("folder", "sms_receipts");
+
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData
       });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.secure_url) {
+        throw new Error(data.error?.message || "Cloudinary upload failed");
+      }
+
+      return {
+        url: data.secure_url,
+        publicId: data.public_id || "",
+        originalName: file.name
+      };
     }
 
     function setSubmittingState(isSubmitting, customText) {
@@ -949,34 +957,13 @@
       formOverlay.classList.toggle("active", isSubmitting);
       submitBtnText.textContent = isSubmitting ? (customText || "იგზავნება...") : "შეტყობინების გაგზავნა";
       overlayText.textContent = isSubmitting
-        ? (customText === "ქვითარი იტვირთება..."
-            ? "გთხოვ, მოიცადე რამდენიმე წამი. ქვითარი იტვირთება Drive-ში."
-            : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.")
+        ? (customText || "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.")
         : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.";
 
       const controls = form.querySelectorAll("input, textarea, select, button");
       controls.forEach(control => {
         if (control !== submitBtn) control.disabled = isSubmitting;
       });
-    }
-
-    async function uploadReceiptWithSameScript(file, orderId) {
-      const base64 = await fileToBase64(file);
-      const payload = {
-        mode: "receipt",
-        orderId: orderId,
-        originalFileName: file.name,
-        mimeType: file.type,
-        fileBase64: base64
-      };
-
-      const response = await fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
-
-      return await response.json();
     }
 
     messageText.addEventListener("input", updatePricing);
@@ -1051,11 +1038,26 @@
       formStatus.className = "status";
       formStatus.textContent = "";
 
-      setSubmittingState(true, "იგზავნება...");
-
       try {
+        setSubmittingState(true, "ქვითარი იტვირთება...");
+
+        let receiptUrl = "";
+        let receiptFileName = "";
+        let receiptPublicId = "";
+
+        if (uploadedFile) {
+          uploadBox.classList.add("uploading");
+          const uploadedReceipt = await uploadToCloudinary(uploadedFile);
+          receiptUrl = uploadedReceipt.url;
+          receiptFileName = uploadedReceipt.originalName;
+          receiptPublicId = uploadedReceipt.publicId;
+          uploadBox.classList.remove("uploading");
+          uploadBox.classList.add("ready");
+        }
+
+        setSubmittingState(true, "მონაცემები იგზავნება...");
+
         const payload = {
-          mode: "order",
           fullname: fullName,
           senderName: sender,
           bank: bankLabel,
@@ -1063,7 +1065,9 @@
           symbols: msg.length,
           segments: segments,
           price: price.toFixed(1) + " GEL",
-          receiptFileName: uploadedFile ? uploadedFile.name : ""
+          receiptFileName: receiptFileName,
+          receiptUrl: receiptUrl,
+          receiptPublicId: receiptPublicId
         };
 
         const response = await fetch(SCRIPT_URL, {
@@ -1075,33 +1079,14 @@
         const result = await response.json();
 
         if (result.status !== "success") {
-          formStatus.className = "status error";
-          formStatus.textContent = "დაფიქსირდა შეცდომა: " + (result.message || "ვერ გაიგზავნა");
-          setSubmittingState(false);
-          return;
-        }
-
-        let finalMessage =
-          "შეტყობინება წარმატებით გაიგზავნა.\n" +
-          "შეკვეთის კოდი: " + (result.orderId || "-");
-
-        if (uploadedFile) {
-          try {
-            setSubmittingState(true, "ქვითარი იტვირთება...");
-            const uploadResult = await uploadReceiptWithSameScript(uploadedFile, result.orderId || "");
-
-            if (uploadResult.status === "success") {
-              finalMessage += "\nქვითარიც წარმატებით აიტვირთა.";
-            } else {
-              finalMessage += "\nქვითარი ვერ აიტვირთა, მაგრამ შეკვეთა მიღებულია.";
-            }
-          } catch (uploadErr) {
-            finalMessage += "\nქვითარი ვერ აიტვირთა, მაგრამ შეკვეთა მიღებულია.";
-          }
+          throw new Error(result.message || "ვერ გაიგზავნა");
         }
 
         formStatus.className = "status success";
-        formStatus.textContent = finalMessage;
+        formStatus.textContent =
+          "შეტყობინება წარმატებით გაიგზავნა.\n" +
+          "შეკვეთის კოდი: " + (result.orderId || "-") +
+          (receiptUrl ? "\nქვითრის ლინკიც შენახულია." : "");
 
         form.reset();
         updatePricing();
@@ -1113,8 +1098,9 @@
         uploadLabelText.textContent = "ქვითრის სქრინის ატვირთვა";
 
       } catch (error) {
+        uploadBox.classList.remove("uploading");
         formStatus.className = "status error";
-        formStatus.textContent = "გაგზავნა ვერ შესრულდა. გადაამოწმე Apps Script.";
+        formStatus.textContent = "გაგზავნა ვერ შესრულდა: " + error.message;
       }
 
       setSubmittingState(false);
