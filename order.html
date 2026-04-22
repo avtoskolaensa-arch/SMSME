@@ -759,12 +759,10 @@
                   <small>ანგარიში</small>
                   <div class="iban">GE61BG0000000607735752</div>
                 </div>
-
                 <div class="bank-line">
                   <small>მიმღები</small>
                   <div class="recipient">ა.ყ</div>
                 </div>
-
                 <div class="bank-actions">
                   <button type="button" class="copy-btn" data-copy="GE61BG0000000607735752">ანგარიშის კოპირება</button>
                 </div>
@@ -781,12 +779,10 @@
                   <small>ანგარიში</small>
                   <div class="iban">GE70TB7342145061600013</div>
                 </div>
-
                 <div class="bank-line">
                   <small>მიმღები</small>
                   <div class="recipient">ა.ყ</div>
                 </div>
-
                 <div class="bank-actions">
                   <button type="button" class="copy-btn" data-copy="GE70TB7342145061600013">ანგარიშის კოპირება</button>
                 </div>
@@ -798,7 +794,7 @@
             <label class="upload-label" for="receiptFile">
               <span class="upload-label-inner">
                 <span id="uploadIcon" class="upload-icon"></span>
-                <span id="uploadLabelText">ქვითრის სქრინის ატვირთვა </span>
+                <span id="uploadLabelText">ქვითრის სქრინის ატვირთვა</span>
               </span>
             </label>
             <input class="file-input" type="file" id="receiptFile" name="receiptFile" accept="image/*">
@@ -834,7 +830,7 @@
 
         <div class="item">
           <strong>ქვითარი არასავალდებულოა</strong>
-          <span>შეტყობინება ფოტოს გარეშეც გაიგზავნება. თუ ატვირთავ ქვითარს, ის ცალკე წავა Drive-ში.</span>
+          <span>შეტყობინება ფოტოს გარეშეც გაიგზავნება. თუ ატვირთავ ქვითარს, ის Drive-ში შეინახება.</span>
         </div>
 
         <div class="item">
@@ -846,7 +842,7 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpGO-t4VYEw0gq76LLyTcOU_Ztos-xcbI2cpUFz18F6imhyogJCmP9AvZwxnNCfh3d/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcmBu-3ZBbHwO1r-6ocX1_LllZbqFtu3GJhNLRfpZgM8rLgQ5iX1zxjRCJX4BYS_fq/exec";
 
     const BASE_PRICE = 3.5;
     const EXTRA_PRICE = 0.5;
@@ -918,7 +914,6 @@
     function updateBankInfo() {
       bogBox.classList.remove("active");
       tbcBox.classList.remove("active");
-
       if (bankSelect.value === "bog") bogBox.classList.add("active");
       if (bankSelect.value === "tbc") tbcBox.classList.add("active");
     }
@@ -954,20 +949,19 @@
       formOverlay.classList.toggle("active", isSubmitting);
       submitBtnText.textContent = isSubmitting ? (customText || "იგზავნება...") : "შეტყობინების გაგზავნა";
       overlayText.textContent = isSubmitting
-        ? (customText === "ქვითარი იტვირთება..." ? "გთხოვ, მოიცადე რამდენიმე წამი. ქვითარი იტვირთება Drive-ში." : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.")
+        ? (customText === "ქვითარი იტვირთება..."
+            ? "გთხოვ, მოიცადე რამდენიმე წამი. ქვითარი იტვირთება Drive-ში."
+            : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.")
         : "გთხოვ, მოიცადე რამდენიმე წამი. მონაცემები იტვირთება.";
 
       const controls = form.querySelectorAll("input, textarea, select, button");
       controls.forEach(control => {
-        if (control !== submitBtn) {
-          control.disabled = isSubmitting;
-        }
+        if (control !== submitBtn) control.disabled = isSubmitting;
       });
     }
 
     async function uploadReceiptWithSameScript(file, orderId) {
       const base64 = await fileToBase64(file);
-
       const payload = {
         mode: "receipt",
         orderId: orderId,
@@ -978,9 +972,7 @@
 
       const response = await fetch(SCRIPT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
 
@@ -1007,7 +999,7 @@
         fileName.textContent = "ფაილი არჩეული არ არის";
         fileMeta.classList.remove("active");
         uploadBox.classList.remove("ready", "uploading");
-        uploadLabelText.textContent = "ქვითრის სქრინის ატვირთვა (არასავალდებულო)";
+        uploadLabelText.textContent = "ქვითრის სქრინის ატვირთვა";
       }
     });
 
@@ -1076,9 +1068,7 @@
 
         const response = await fetch(SCRIPT_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
 
@@ -1120,7 +1110,7 @@
         fileName.textContent = "ფაილი არჩეული არ არის";
         fileMeta.classList.remove("active");
         uploadBox.classList.remove("ready", "uploading");
-        uploadLabelText.textContent = "ქვითრის სქრინის ატვირთვა (არასავალდებულო)";
+        uploadLabelText.textContent = "ქვითრის სქრინის ატვირთვა";
 
       } catch (error) {
         formStatus.className = "status error";
