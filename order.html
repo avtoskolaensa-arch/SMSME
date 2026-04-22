@@ -45,7 +45,7 @@
 
     .container {
       width: 100%;
-      max-width: 1160px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 0 14px;
     }
@@ -81,6 +81,7 @@
       font-size: 20px;
       line-height: 1.1;
       letter-spacing: -0.02em;
+      word-break: break-word;
     }
 
     .brand span {
@@ -88,6 +89,7 @@
       color: var(--muted);
       font-size: 12px;
       margin-top: 3px;
+      word-break: break-word;
     }
 
     .back-link {
@@ -98,6 +100,7 @@
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 12px;
       background: rgba(255,255,255,0.04);
+      flex-shrink: 0;
     }
 
     .hero {
@@ -107,6 +110,7 @@
       box-shadow: var(--shadow);
       padding: 22px;
       margin-bottom: 16px;
+      overflow: hidden;
     }
 
     .hero-badge {
@@ -120,6 +124,8 @@
       font-size: 12px;
       color: #fff;
       margin-bottom: 12px;
+      max-width: 100%;
+      word-break: break-word;
     }
 
     .hero h1 {
@@ -127,18 +133,18 @@
       line-height: 1.08;
       margin-bottom: 8px;
       letter-spacing: -0.025em;
+      word-break: break-word;
     }
 
     .hero p {
       color: var(--muted);
       font-size: 14px;
       max-width: 760px;
+      word-break: break-word;
     }
 
     .layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
+      display: block;
     }
 
     .card {
@@ -156,12 +162,14 @@
       font-size: 22px;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
+      word-break: break-word;
     }
 
     .card .sub {
       color: var(--muted);
       font-size: 13px;
       margin-bottom: 16px;
+      word-break: break-word;
     }
 
     form { display: grid; gap: 14px; }
@@ -172,6 +180,7 @@
       font-weight: 700;
       margin-bottom: 7px;
       color: #fff;
+      word-break: break-word;
     }
 
     .field input,
@@ -228,12 +237,14 @@
       margin-top: 7px;
       font-size: 12px;
       color: var(--muted);
+      word-break: break-word;
     }
 
     .warning {
       margin-top: 8px;
       font-size: 12px;
       color: #ffd58a;
+      word-break: break-word;
     }
 
     .error-text {
@@ -241,6 +252,7 @@
       font-size: 12px;
       color: #ffb3b3;
       display: none;
+      word-break: break-word;
     }
 
     .price-box {
@@ -250,6 +262,7 @@
       border: 1px solid rgba(139,92,246,0.24);
       display: grid;
       gap: 12px;
+      overflow: hidden;
     }
 
     .price-main {
@@ -260,13 +273,17 @@
       flex-wrap: wrap;
     }
 
-    .price-main strong { font-size: 17px; }
+    .price-main strong {
+      font-size: 17px;
+      word-break: break-word;
+    }
 
     .price-value {
       font-size: 30px;
       font-weight: 800;
       color: #fff;
       text-shadow: 0 8px 24px rgba(139,92,246,0.25);
+      word-break: break-word;
     }
 
     .stats {
@@ -280,17 +297,20 @@
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
       padding: 14px;
+      overflow: hidden;
     }
 
     .mini-box strong {
       display: block;
       font-size: 16px;
       margin-bottom: 4px;
+      word-break: break-word;
     }
 
     .mini-box span {
       color: var(--muted);
       font-size: 12px;
+      word-break: break-word;
     }
 
     .bank-box {
@@ -320,11 +340,13 @@
     .bank-head h3 {
       font-size: 17px;
       margin-bottom: 4px;
+      word-break: break-word;
     }
 
     .bank-head p {
       font-size: 12px;
       color: var(--muted);
+      word-break: break-word;
     }
 
     .bank-body {
@@ -339,6 +361,7 @@
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
       padding: 13px 14px;
+      overflow: hidden;
     }
 
     .bank-line small {
@@ -348,6 +371,7 @@
       margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      word-break: break-word;
     }
 
     .iban {
@@ -361,6 +385,7 @@
       font-size: 14px;
       color: #fff;
       font-weight: 700;
+      word-break: break-word;
     }
 
     .bank-actions {
@@ -383,6 +408,7 @@
       font-weight: 800;
       cursor: pointer;
       transition: 0.22s ease;
+      text-align: center;
     }
 
     .copy-btn {
@@ -429,6 +455,8 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .upload-icon {
@@ -439,6 +467,7 @@
       border-top-color: #fff;
       display: none;
       animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
     }
 
     .upload-box.uploading .upload-icon {
@@ -483,6 +512,7 @@
       border: 1px solid rgba(16,185,129,0.22);
       padding: 8px 10px;
       border-radius: 999px;
+      word-break: break-word;
     }
 
     .submit-btn {
@@ -515,9 +545,12 @@
     .btn-content {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       position: relative;
       z-index: 1;
+      flex-wrap: wrap;
+      width: 100%;
     }
 
     .spinner {
@@ -547,6 +580,7 @@
       font-size: 13px;
       font-weight: 700;
       white-space: pre-line;
+      word-break: break-word;
     }
 
     .status.success {
@@ -563,45 +597,6 @@
       border: 1px solid rgba(239,68,68,0.28);
     }
 
-    .side-info {
-      display: grid;
-      gap: 12px;
-    }
-
-    .side-info .item {
-      border-radius: 20px;
-      padding: 15px;
-      border: 1px solid rgba(255,255,255,0.09);
-      box-shadow: var(--shadow);
-    }
-
-    .side-info .item:nth-child(1) {
-      background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(109,40,217,0.10));
-    }
-
-    .side-info .item:nth-child(2) {
-      background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(6,182,212,0.08));
-    }
-
-    .side-info .item:nth-child(3) {
-      background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(16,185,129,0.08));
-    }
-
-    .side-info .item:nth-child(4) {
-      background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(245,158,11,0.08));
-    }
-
-    .side-info .item strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 15px;
-    }
-
-    .side-info .item span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
     .form-overlay {
       position: absolute;
       inset: 0;
@@ -612,6 +607,7 @@
       justify-content: center;
       z-index: 5;
       border-radius: inherit;
+      padding: 16px;
     }
 
     .form-overlay.active {
@@ -619,7 +615,7 @@
     }
 
     .overlay-box {
-      width: calc(100% - 40px);
+      width: 100%;
       max-width: 360px;
       border-radius: 22px;
       padding: 22px 18px;
@@ -627,6 +623,7 @@
       border: 1px solid rgba(255,255,255,0.12);
       text-align: center;
       box-shadow: 0 20px 50px rgba(0,0,0,0.28);
+      overflow: hidden;
     }
 
     .overlay-spinner {
@@ -643,12 +640,14 @@
       display: block;
       font-size: 18px;
       margin-bottom: 6px;
+      word-break: break-word;
     }
 
     .overlay-box p {
       color: var(--muted);
       font-size: 13px;
       line-height: 1.45;
+      word-break: break-word;
     }
 
     @media (min-width: 860px) {
@@ -656,9 +655,138 @@
       .hero { padding: 24px; }
       .hero h1 { font-size: 38px; }
       .hero p { font-size: 15px; }
-      .layout {
-        grid-template-columns: 1.08fr 0.92fr;
-        gap: 18px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 12px 0 24px;
+      }
+
+      .container {
+        padding: 0 10px;
+      }
+
+      .topbar {
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+      }
+
+      .brand strong {
+        font-size: 17px;
+      }
+
+      .brand span {
+        font-size: 11px;
+      }
+
+      .back-link {
+        font-size: 12px;
+        padding: 9px 10px;
+      }
+
+      .hero {
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+
+      .hero-badge {
+        font-size: 11px;
+        padding: 7px 10px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .hero p {
+        font-size: 13px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .card h2 {
+        font-size: 20px;
+      }
+
+      .card .sub {
+        font-size: 12px;
+      }
+
+      .field label {
+        font-size: 12px;
+      }
+
+      .field input,
+      .field textarea,
+      .field select {
+        font-size: 13px;
+        padding: 13px 14px;
+      }
+
+      .field textarea {
+        min-height: 120px;
+      }
+
+      .price-main {
+        gap: 8px;
+      }
+
+      .price-main strong {
+        font-size: 15px;
+      }
+
+      .price-value {
+        font-size: 24px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-box {
+        padding: 12px;
+      }
+
+      .upload-box {
+        padding: 12px;
+      }
+
+      .upload-label {
+        min-height: 52px;
+        padding: 10px;
+      }
+
+      .copy-btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .bank-head,
+      .bank-body {
+        padding: 12px;
+      }
+
+      .iban {
+        font-size: 14px;
+      }
+
+      .recipient {
+        font-size: 13px;
+      }
+
+      .submit-btn {
+        min-height: 50px;
+      }
+
+      .status {
+        font-size: 12px;
       }
     }
   </style>
@@ -680,7 +808,7 @@
       <div class="hero-badge">SMSME • Order Form</div>
       <h1>გააგზავნე ანონიმური შეტყობინება</h1>
       <p>
-        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი და სურვილის შემთხვევაში ატვირთე ქვითარი.
+        შეავსე ფორმა, ჩაწერე მხოლოდ ლათინური ასოებით, აირჩიე გადახდის ბანკი და ატვირთე ქვითარი.
       </p>
     </div>
 
@@ -806,7 +934,7 @@
                 <span id="uploadLabelText">ქვითრის სქრინის ატვირთვა</span>
               </span>
             </label>
-            <input class="file-input" type="file" id="receiptFile" name="receiptFile" accept="image/*">
+            <input class="file-input" type="file" id="receiptFile" name="receiptFile" accept="image/*" required>
             <div class="file-name" id="fileName">ფაილი არჩეული არ არის</div>
 
             <div id="fileMeta" class="file-meta">
@@ -824,28 +952,6 @@
 
           <div id="formStatus" class="status"></div>
         </form>
-      </div>
-
-      <div class="side-info">
-        <div class="item">
-          <strong>მხოლოდ ლათინური ასოები</strong>
-          <span>ქართულ სიმბოლოებს ნუ გამოიყენებ. ლათინური ტექსტი საჭიროა სწორი სიმბოლოების დათვლისთვის.</span>
-        </div>
-
-        <div class="item">
-          <strong>სიმბოლოებში შეზღუდვა არ არის</strong>
-          <span>შეგიძლია დაწერო რამდენიც გინდა. ფასი ავტომატურად იზრდება ყოველ დამატებით 160 სიმბოლოზე.</span>
-        </div>
-
-        <div class="item">
-          <strong>ქვითარი არასავალდებულოა</strong>
-          <span>შეტყობინება ფოტოს გარეშეც გაიგზავნება. თუ ატვირთავ ქვითარს, ის უსაფრთხოდ შეინახება ლინკის სახით.</span>
-        </div>
-
-        <div class="item">
-          <strong>აკრძალული სახელები</strong>
-          <span>შეგიძლია ხელით მართო აკრძალული სახელების სია და დაბლოკო არასასურველი გამგზავნის სახელები.</span>
-        </div>
       </div>
     </div>
   </div>
@@ -1025,9 +1131,9 @@
       const selectedBank = bankSelect.value;
       const uploadedFile = receiptFile.files[0] || null;
 
-      if (!fullName || !sender || !phone || !msg || !selectedBank) {
+      if (!fullName || !sender || !phone || !msg || !selectedBank || !uploadedFile) {
         formStatus.className = "status error";
-        formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი.";
+        formStatus.textContent = "გთხოვ, შეავსო ყველა აუცილებელი ველი და ატვირთო ქვითარი.";
         return;
       }
 
@@ -1062,15 +1168,13 @@
         let receiptFileName = "";
         let receiptPublicId = "";
 
-        if (uploadedFile) {
-          uploadBox.classList.add("uploading");
-          const uploadedReceipt = await uploadToCloudinary(uploadedFile);
-          receiptUrl = uploadedReceipt.url;
-          receiptFileName = uploadedReceipt.originalName;
-          receiptPublicId = uploadedReceipt.publicId;
-          uploadBox.classList.remove("uploading");
-          uploadBox.classList.add("ready");
-        }
+        uploadBox.classList.add("uploading");
+        const uploadedReceipt = await uploadToCloudinary(uploadedFile);
+        receiptUrl = uploadedReceipt.url;
+        receiptFileName = uploadedReceipt.originalName;
+        receiptPublicId = uploadedReceipt.publicId;
+        uploadBox.classList.remove("uploading");
+        uploadBox.classList.add("ready");
 
         setSubmittingState(true, "მონაცემები იგზავნება...");
 
@@ -1104,7 +1208,7 @@
         formStatus.textContent =
           "შეტყობინება წარმატებით გაიგზავნა.\n" +
           "შეკვეთის კოდი: " + (result.orderId || "-") +
-          (receiptUrl ? "\nგმადლობთ რომ სარგებლობთ ჩვენი სერვისით." : "");
+          "\nგმადლობთ რომ სარგებლობთ ჩვენი სერვისით.";
 
         form.reset();
         updatePricing();
